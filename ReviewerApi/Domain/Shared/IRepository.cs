@@ -7,6 +7,6 @@ public interface IRepository<TEntity>
     Task<List<TEntity>> GetAllAsync();
     void Add(TEntity entity);
     void Update(TEntity entity);
-    void DeleteByName(User entity);
+    void DeleteByName(TEntity entity);
     Task DeleteByIdAsync(Guid Id);
 }
