@@ -18,12 +18,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="EntityServices\Comment\Command\" />
-	  <Folder Include="EntityServices\Comment\Request\" />
-	  <Folder Include="EntityServices\Course\Command\" />
-	  <Folder Include="EntityServices\Course\Request\" />
-	  <Folder Include="EntityServices\User\Command\" />
-	  <Folder Include="EntityServices\User\Request\" />
+	  <Folder Include="EntityServices\Comments\Command\" />
+	  <Folder Include="EntityServices\Comments\Request\" />
+	  <Folder Include="EntityServices\Courses\Command\" />
+	  <Folder Include="EntityServices\Courses\Request\" />
+	  <Folder Include="EntityServices\Users\Command\" />
+	  <Folder Include="EntityServices\Users\Request\" />
 	</ItemGroup>
 
 </Project>
