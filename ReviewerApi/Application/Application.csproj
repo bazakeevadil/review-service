@@ -17,4 +17,13 @@
 	  <ProjectReference Include="..\Domain\Domain.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="EntityServices\Comment\Command\" />
+	  <Folder Include="EntityServices\Comment\Request\" />
+	  <Folder Include="EntityServices\Course\Command\" />
+	  <Folder Include="EntityServices\Course\Request\" />
+	  <Folder Include="EntityServices\User\Command\" />
+	  <Folder Include="EntityServices\User\Request\" />
+	</ItemGroup>
+
 </Project>
