@@ -1,4 +1,4 @@
-﻿using Application.Features.Users.Commands;
+using Application.Features.Users.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
