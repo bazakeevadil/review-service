@@ -26,7 +26,7 @@ internal class UserRepository : IUserRepository
         return _context.Users.AsNoTracking().ToListAsync();
     }
 
-    public async Task<User?> GetUserById(Guid id)
+    public async Task<User?> GetById(Guid id)
     {
         var entity = await _context.Users.FindAsync(id);
 
@@ -36,7 +36,7 @@ internal class UserRepository : IUserRepository
         return entity;
     }
 
-    public Task<User?> GetUserByUsername(string username)
+    public Task<User?> GetByUsername(string username)
     {
         return _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == username);
     }
@@ -64,5 +64,13 @@ internal class UserRepository : IUserRepository
 
         if (entity != null)
             _context.Users.Remove(entity);
+    }
+
+    public async Task<User?> CheckUserCredentials(string username, string password)
+    {
+        var user = await _context.Users.SingleOrDefaultAsync(u => u.Username == username);
+        if (user is null || await HashPasswordAsync(password) != user.HashPassword)
+            return null;
+        return user;
     }
 }
