@@ -1,43 +1,29 @@
-﻿using Domain.Repositories;
+﻿using Application.Contract;
+using Domain.Repositories;
+using Mapster;
 using MediatR;
 
 namespace Application.Features.Courses.Request;
+public record GetAllCoursesQuery : IRequest<List<CourseDto>> { }
 
-public class GetAllCourses
+internal class GetAllCoursesQueryHandler
+    : IRequestHandler<GetAllCoursesQuery, List<CourseDto>>
 {
-    public record GetCourseResponse
+    private readonly ICourseRepo _courseRepository;
+
+    public GetAllCoursesQueryHandler(ICourseRepo userRepository)
     {
-        public long Id { get; init; }
-        public string Name { get; init; }
-        public string Description { get; init; }
+        _courseRepository = userRepository;
     }
 
-    public record GetAllCoursesRequest : IRequest<IEnumerable<GetCourseResponse>> { }
-
-    internal class GetAllBookHandler : IRequestHandler<GetAllCoursesRequest, IEnumerable<GetCourseResponse>>
+    public async Task<List<CourseDto>> Handle(
+        GetAllCoursesQuery request, CancellationToken cancellationToken)
     {
-        private readonly ICourseRepo _courseRepo;
+        var users = await _courseRepository.GetAllAsync();
 
-        public GetAllBookHandler(ICourseRepo bookRepository)
-        {
-            _courseRepo = bookRepository;
-        }
+        var response = users.Adapt<List<CourseDto>>();
 
-        public async Task<IEnumerable<GetCourseResponse>> Handle(GetAllCoursesRequest request, CancellationToken cancellationToken)
-        {
-            var Courses = await _courseRepo.GetAllAsync().ConfigureAwait(false);
-            var response = new List<GetCourseResponse>();
-            foreach (var course in Courses)
-            {
-                var result = new GetCourseResponse()
-                {
-                    Id = course.Id,
-                    Name = course.Name,
-                    Description = course.Description,
-                };
-                response.Add(result);
-            }
-            return response;
-        }
+        return response;
     }
 }
+
