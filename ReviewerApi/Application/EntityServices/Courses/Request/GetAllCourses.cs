@@ -1,7 +1,5 @@
-﻿using Domain.Entities;
-using Domain.Repositories;
+﻿using Domain.Repositories;
 using MediatR;
-using System.ComponentModel.DataAnnotations;
 
 namespace Application.EntityServices.Courses.Request;
 
