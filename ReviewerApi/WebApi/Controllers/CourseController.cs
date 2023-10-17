@@ -1,8 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Application.EntityServices.Courses.Request;
-using static Application.EntityServices.Courses.Request.GetAllCourses;
+using static Application.Features.Courses.Request.GetAllCourses;
 
 namespace WebApi.Controllers;
 

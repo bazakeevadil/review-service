@@ -1,7 +1,7 @@
 ﻿using Domain.Repositories;
 using MediatR;
 
-namespace Application.EntityServices.Courses.Request;
+namespace Application.Features.Courses.Request;
 
 public class GetAllCourses
 {
