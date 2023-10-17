@@ -18,5 +18,5 @@ public class User
     [StringLength(200)]
     public required string HashPassword { get; set; }
     public Role Role { get; set; }
-    public List<Comment> Comments { get; set; } 
+    public List<Comment> Comments { get; set; } = new();
 }
