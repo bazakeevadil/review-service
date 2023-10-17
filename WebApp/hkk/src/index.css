@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.container{
+  max-width: 1410px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+.header__wrapper{
+  padding: 30px 100px;
+  display: flex;
+justify-content: space-between;
+}
+.header__logo{
+  width: 60px;
+  height: 60px;
+}
+.header__logo img{
+width: 100%;
+height: 100%;
+}
+.header__login button{
+  background:  #263959;
+  padding: 15px 25px;
+  font-size: 16px;
+  border-radius: 9px;
+  color: white;
+
+}
+.noAuthBanner{
+  width: 100%;
+  height: 500px;
+  position: relative;
+}
+.noAuthBanner img{
+  width: 100%;
+  height: 100%;
+}
+.banner__desc{
+  position: absolute;
+  top :200px;
+  left: 40px;
+  color: white;
+  font-size: 50px;
+}
