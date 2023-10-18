@@ -20,6 +20,8 @@ public static class DependencyInjection
 
         services.AddTransient<IUnitOfWork, UnitOfWork>();
         services.AddTransient<IUserRepository, UserRepository>();
+        services.AddTransient<ICourseRepo, CourseRepo>();
+
 
         return services;
     }
