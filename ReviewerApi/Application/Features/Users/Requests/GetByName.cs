@@ -23,7 +23,7 @@ internal class GetUserByUsernameQueryHandler
     public async Task<UserDto?> Handle(
         GetUserByUsernameQuery request, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetByEmail(request.Username);
+        var user = await _userRepository.GetByUsername(request.Username);
 
         var response = user.Adapt<UserDto?>();
 
