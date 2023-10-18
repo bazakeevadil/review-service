@@ -7,7 +7,7 @@ namespace Application.Features.Users.Requests;
 public record GetUserResponseById
 {
     public Guid Id { get; set; }
-    public required string Username { get; set; }
+    public required string Email { get; set; }
     public required Role Role { get; init; }
 }
 
@@ -33,7 +33,7 @@ internal class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, GetUs
             var response = new GetUserResponseById
             {
                 Id = user.Id,
-                Username = user.Username,
+                Email = user.Email,
                 Role = user.Role,
             };
             return response;

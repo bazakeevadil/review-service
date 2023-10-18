@@ -10,7 +10,7 @@ namespace Application.Features.Users.Commands;
 
 public record LoginQuery : IRequest<string>
 {
-    public required string Username { get; init; }
+    public required string Email { get; init; }
 
     public required string Password { get; init; }
 }
@@ -28,12 +28,12 @@ internal class LoginHandler : IRequestHandler<LoginQuery, string>
 
     public async Task<string> Handle(LoginQuery request, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.CheckUserCredentials(request.Username, request.Password);
+        var user = await _userRepository.CheckUserCredentials(request.Email, request.Password);
         if (user is not null)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Name, user.Email),
                 new Claim(ClaimTypes.Role, user.Role.ToString())
             };
             var tokenString = GetTokenString(claims, DateTime.UtcNow.AddMinutes(30));

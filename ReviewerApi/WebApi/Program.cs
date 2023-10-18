@@ -1,6 +1,8 @@
 using Application;
 using Infrastructure;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using WebApi;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,11 +28,15 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
-
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+//using (var scope = app.Services.CreateScope())
+//{
+//    var services = scope.ServiceProvider;
+//    var context = services.GetRequiredService<AppDbContext>(); context.Database.Migrate();
+//}
 
 app.Run();
