@@ -29,7 +29,7 @@ public class CourseRepo : ICourseRepo
 
     public void DeleteByName(Course entity)
     {
-        throw new NotImplementedException();
+        _context.Courses.Remove(entity);
     }
 
     public Task<List<Course>> GetAllAsync()
@@ -37,18 +37,24 @@ public class CourseRepo : ICourseRepo
         return _context.Courses.AsNoTracking().ToListAsync();
     }
 
-    public Task<Course?> GetCourseById(long id)
+    public async Task<Course?> GetCourseById(long id)
     {
-        throw new NotImplementedException();
+        var entity = await _context.Courses.FindAsync(id);
+
+        if (entity != null)
+            _context.Entry(entity).State = EntityState.Detached;
+
+        return entity;
     }
 
-    public Task<Course?> GetCourseByName(string name)
+    public async Task<Course?> GetCourseByName(string name)
     {
-        throw new NotImplementedException();
+        var course = await _context.Courses.FirstOrDefaultAsync(b => b.Name == name);
+        return course ?? default;
     }
 
     public void Update(Course entity)
     {
-        throw new NotImplementedException();
+        _context.Courses.Update(entity);
     }
 }
