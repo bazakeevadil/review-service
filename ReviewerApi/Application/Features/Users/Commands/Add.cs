@@ -9,10 +9,10 @@ namespace Application.Features.Users.Commands;
 
 public record CreateUserCommand : IRequest<UserDto>
 {
-    public required string Email { get; init; }
+    public required string Username { get; init; }
 
     public required string Password { get; init; }
- 
+
     public required Role Role { get; init; }
 }
 
@@ -31,7 +31,7 @@ internal class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Use
     {
         var user = new User
         {
-            Email = request.Email,
+            Username = request.Username,
             HashPassword = await _userRepository.HashPasswordAsync(request.Password),
             Role = request.Role,
         };
@@ -42,7 +42,7 @@ internal class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Use
         var response = new UserDto
         {
             Id = user.Id,
-            Email = user.Email,
+            Username = user.Username,
             Role = user.Role,
         };
 

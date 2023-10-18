@@ -8,7 +8,7 @@ namespace Application.Features.Users.Commands;
 
 public record UpdateUserCommand : IRequest<UserDto?>
 {
-    public required string Email { get; init; }
+    public required string Username { get; init; }
 
     public required string Password { get; init; }
 
@@ -28,10 +28,10 @@ internal class UpdateUserHandler : IRequestHandler<UpdateUserCommand, UserDto?>
 
     public async Task<UserDto?> Handle(UpdateUserCommand command, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetByEmail(command.Email);
+        var user = await _userRepository.GetByUsername(command.Username);
         if (user is not null)
         {
-            user.Email ??= command.Email;
+            user.Username ??= command.Username;
             user.HashPassword ??= command.Password;
             user.Role = command.Role;
 
@@ -41,7 +41,7 @@ internal class UpdateUserHandler : IRequestHandler<UpdateUserCommand, UserDto?>
             var response = new UserDto
             {
                 Id = user.Id,
-                Email = user.Email,
+                Username = user.Username,
                 Role = user.Role,
             };
             return response;

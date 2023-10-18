@@ -24,7 +24,7 @@ public class AuthController : ControllerBase
     [SwaggerResponse(400, "Ошибка валидации")]
     public async Task<IActionResult> Login(LoginQuery query)
     {
-        if (query.Email.IsNullOrEmpty()) return BadRequest("Email is null");
+        if (query.Username.IsNullOrEmpty()) return BadRequest("Username is null");
         if (query.Password.IsNullOrEmpty()) return BadRequest("Password is null");
 
         var token = await _mediator.Send(query) ?? string.Empty;
@@ -38,7 +38,7 @@ public class AuthController : ControllerBase
     [SwaggerResponse(400, "Ошибка валидации")]
     public async Task<IActionResult> Register(CreateUserCommand command)
     {
-        if (command.Email.IsNullOrEmpty()) return BadRequest("Email is null");
+        if (command.Username.IsNullOrEmpty()) return BadRequest("Username is null");
         if (command.Password.IsNullOrEmpty()) return BadRequest("Password is null");
 
         if (((int)command.Role) < 1 || ((int)command.Role) > 2)
