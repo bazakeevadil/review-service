@@ -4,11 +4,11 @@ namespace Application.Contract;
 
 public class CommentDto
 {
-    public long Id { get; set; }
-    public long UserId { get; set; }
-    public User? User { get; set; }
-    public string? CourseId { get; set; }
-    public Course? Course { get; set; }
-    public string? Content { get; set; }
-    public short Grade { get; set; }
+    public long Id { get; init; }
+    public long UserId { get; init; }
+    public User? User { get; init; }
+    public string? CourseId { get; init; }
+    public Course? Course { get; init; }
+    public required string? Content { get; init; }
+    public required short Grade { get; init; }
 }

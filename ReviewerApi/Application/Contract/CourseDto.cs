@@ -4,8 +4,7 @@ namespace Application.Contract;
 
 public class CourseDto
 {
-    public long Id { get; set; }
-    public string? Name { get; set; }
-    public string? Description { get; set; }
-    public List<Comment> Comments { get; set; } = new();
+    public long Id { get; init; }
+    public required string? Name { get; init; }
+    public required string? Description { get; init; }
 }

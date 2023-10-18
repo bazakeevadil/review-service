@@ -1,6 +1,6 @@
 ﻿namespace Application.Features.Courses.Request;
 
-public class GetByName
+public class GetCourseByName
 {
 
 }
