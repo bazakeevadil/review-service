@@ -3,18 +3,13 @@ using Application.Shared;
 using Domain.Entities;
 using Domain.Repositories;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Comments.Command;
 
 public record CreateCommentCommand : IRequest<CommentDto>
 {
-    public string? Name { get; init; }
-    public string? Description { get; init; }
+    public required string? Content { get; init; }
+    public required short Grade { get; init; }
 }
 
 internal class CreateCommentCommandHandler : IRequestHandler<CreateCommentCommand, CommentDto>
@@ -30,17 +25,20 @@ internal class CreateCommentCommandHandler : IRequestHandler<CreateCommentComman
 
     public async Task<CommentDto> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
     {
-        var course = new Comment
+        var comment = new Comment
         {
-
+            Content = request.Content,
+            Grade = request.Grade,
         };
 
-        _commentRepo.Add(course);
+        _commentRepo.Add(comment);
         await _unitOfWork.CommitAsync();
 
         var response = new CommentDto
         {
-            Id = course.Id,
+            Id = comment.Id,
+            Content = comment.Content,
+            Grade = request.Grade,
         };
 
         return response;
