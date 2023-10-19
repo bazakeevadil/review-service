@@ -7,7 +7,7 @@ namespace Application.Features.Users.Requests;
 
 public record GetUserByUsernameQuery : IRequest<UserDto?>
 {
-    public required string Username { get; init; }
+    public required string Email { get; init; }
 }
 
 internal class GetUserByUsernameQueryHandler
@@ -23,7 +23,7 @@ internal class GetUserByUsernameQueryHandler
     public async Task<UserDto?> Handle(
         GetUserByUsernameQuery request, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetByUsername(request.Username);
+        var user = await _userRepository.GetByEmail(request.Email);
 
         var response = user.Adapt<UserDto?>();
 

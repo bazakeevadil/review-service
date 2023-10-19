@@ -30,8 +30,8 @@ public static class ConfigureServices
                 IssuerSigningKey =
                     new SymmetricSecurityKey(
                         Encoding.ASCII.GetBytes(
-                            configuration["Jwt"] ??
-                                throw new Exception())),
+                            configuration["WEBAPI_JWT"] ??
+                                throw new Exception("JWT was not found!!!"))),
             };
         });
 

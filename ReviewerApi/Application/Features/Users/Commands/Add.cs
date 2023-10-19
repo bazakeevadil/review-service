@@ -12,8 +12,6 @@ public record CreateUserCommand : IRequest<UserDto>
     public required string Username { get; init; }
 
     public required string Password { get; init; }
-
-    public required Role Role { get; init; }
 }
 
 internal class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserDto>
@@ -31,9 +29,9 @@ internal class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Use
     {
         var user = new User
         {
-            Username = request.Username,
+            Email = request.Username,
             HashPassword = await _userRepository.HashPasswordAsync(request.Password),
-            Role = request.Role,
+            Role = Role.User
         };
 
         _userRepository.Add(user);
@@ -42,7 +40,7 @@ internal class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Use
         var response = new UserDto
         {
             Id = user.Id,
-            Username = user.Username,
+            Email = user.Email,
             Role = user.Role,
         };
 
