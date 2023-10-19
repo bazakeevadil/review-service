@@ -4,24 +4,24 @@ using Mapster;
 using MediatR;
 
 namespace Application.Features.Courses.Request;
-public record GetAllCoursesQuery : IRequest<List<CourseDto>> { }
+public record GetAllCoursesQuery : IRequest<List<Contract.CourseDto>> { }
 
 internal class GetAllCoursesQueryHandler
-    : IRequestHandler<GetAllCoursesQuery, List<CourseDto>>
+    : IRequestHandler<GetAllCoursesQuery, List<Contract.CourseDto>>
 {
     private readonly ICourseRepo _courseRepository;
 
-    public GetAllCoursesQueryHandler(ICourseRepo userRepository)
+    public GetAllCoursesQueryHandler(ICourseRepo commentRepository)
     {
-        _courseRepository = userRepository;
+        _courseRepository = commentRepository;
     }
 
-    public async Task<List<CourseDto>> Handle(
+    public async Task<List<Contract.CourseDto>> Handle(
         GetAllCoursesQuery request, CancellationToken cancellationToken)
     {
-        var users = await _courseRepository.GetAllAsync();
+        var comment = await _courseRepository.GetAllAsync();
 
-        var response = users.Adapt<List<CourseDto>>();
+        var response = comment.Adapt<List<Contract.CourseDto>>();
 
         return response;
     }

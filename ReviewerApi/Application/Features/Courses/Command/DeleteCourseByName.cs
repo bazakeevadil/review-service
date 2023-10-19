@@ -4,13 +4,13 @@ using MediatR;
 
 namespace Application.Features.Courses.Command;
 
-public record DeleteCourseCommand : IRequest
+public record DeleteCourseByNameCommand : IRequest
 {
     public required string Name { get; init; }
 }
 
 internal class DeleteCourseCommandHandler
-    : IRequestHandler<DeleteCourseCommand>
+    : IRequestHandler<DeleteCourseByNameCommand>
 {
     private readonly ICourseRepo _courseRepository;
     private readonly IUnitOfWork _uow;
@@ -21,12 +21,13 @@ internal class DeleteCourseCommandHandler
         _uow = uow;
     }
 
-    public async Task Handle(DeleteCourseCommand request, CancellationToken cancellationToken)
+    public async Task Handle(DeleteCourseByNameCommand request, CancellationToken cancellationToken)
     {
         var course = await _courseRepository.GetCourseByName(request.Name);
-        if (course == null) return;
-
-        _courseRepository.DeleteByName(course);
-        await _uow.CommitAsync();
+        if (course is not null)
+        {
+            _courseRepository.DeleteByName(course);
+            await _uow.CommitAsync();
+        }
     }
 }
