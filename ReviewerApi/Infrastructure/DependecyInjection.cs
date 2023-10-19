@@ -16,10 +16,12 @@ public static class DependencyInjection
     {
         services.AddDbContext<AppDbContext>(opts =>
             opts.UseSqlServer(
-                configuration.GetConnectionString("SqlConnection")));
+                configuration.GetConnectionString("Default")));
 
         services.AddTransient<IUnitOfWork, UnitOfWork>();
         services.AddTransient<IUserRepository, UserRepository>();
+        services.AddTransient<ICourseRepo, CourseRepo>();
+        services.AddTransient<ICommentRepo, CommentRepo>();
 
         return services;
     }
