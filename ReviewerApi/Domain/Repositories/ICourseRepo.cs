@@ -7,5 +7,5 @@ public interface ICourseRepo : IRepository<Course>
 {
     Task<Course?> GetCourseById(long id);
     Task<Course?> GetCourseByName(string name);
-
+    Task DeleteByIdAsync(long Id);
 }

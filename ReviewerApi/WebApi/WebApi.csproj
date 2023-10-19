@@ -4,7 +4,6 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>5d8b8ce2-7750-433b-abe7-071814774052</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
@@ -22,13 +21,14 @@
 		<PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.11" />
 	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
+	<PropertyGroup>
+		<DockerfileRunArguments></DockerfileRunArguments>
+		<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+		<UserSecretsId>d1e01d50-4d0f-40df-99b3-1b89519d49fd</UserSecretsId>
+	</PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
-    <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 

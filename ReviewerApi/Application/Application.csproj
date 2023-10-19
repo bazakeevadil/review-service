@@ -10,20 +10,12 @@
 		<PackageReference Include="Mapster" Version="7.4.0" />
 		<PackageReference Include="MediatR" Version="12.1.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.24.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Domain\Domain.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="EntityServices\Comments\Command\" />
-	  <Folder Include="EntityServices\Comments\Request\" />
-	  <Folder Include="EntityServices\Courses\Command\" />
-	  <Folder Include="EntityServices\Courses\Request\" />
-	  <Folder Include="EntityServices\Users\Command\" />
-	  <Folder Include="EntityServices\Users\Request\" />
 	</ItemGroup>
 
 </Project>

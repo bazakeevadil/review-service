@@ -6,14 +6,14 @@ namespace Application.Features.Users.Requests;
 
 public record GetUserResponseById
 {
-    public Guid Id { get; set; }
-    public required string Username { get; set; }
+    public long Id { get; set; }
+    public required string Email { get; set; }
     public required Role Role { get; init; }
 }
 
 public record GetUserByIdQuery : IRequest<GetUserResponseById?>
 {
-    public required Guid Id { get; init; }
+    public required long Id { get; init; }
 }
 
 internal class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, GetUserResponseById?>
@@ -33,7 +33,7 @@ internal class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, GetUs
             var response = new GetUserResponseById
             {
                 Id = user.Id,
-                Username = user.Username,
+                Email = user.Email,
                 Role = user.Role,
             };
             return response;

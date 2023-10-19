@@ -26,7 +26,7 @@ internal class UserRepository : IUserRepository
         return _context.Users.AsNoTracking().ToListAsync();
     }
 
-    public async Task<User?> GetById(Guid id)
+    public async Task<User?> GetById(long id)
     {
         var entity = await _context.Users.FindAsync(id);
 
@@ -36,9 +36,9 @@ internal class UserRepository : IUserRepository
         return entity;
     }
 
-    public Task<User?> GetByUsername(string username)
+    public Task<User?> GetByEmail(string email)
     {
-        return _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == username);
+        return _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
     }
 
     public async Task<string> HashPasswordAsync(string password)
@@ -53,12 +53,12 @@ internal class UserRepository : IUserRepository
         _context.Users.Update(entity);
     }
 
-    public void DeleteByName(User entity)
+    public void Delete(User entity)
     {
         _context.Users.Remove(entity);
     }
 
-    public async Task DeleteByIdAsync(Guid id)
+    public async Task DeleteByIdAsync(long id)
     {
         var entity = await _context.Users.FindAsync(id);
 
@@ -66,11 +66,13 @@ internal class UserRepository : IUserRepository
             _context.Users.Remove(entity);
     }
 
-    public async Task<User?> CheckUserCredentials(string username, string password)
+    public async Task<User?> CheckUserCredentials(string email, string password)
     {
-        var user = await _context.Users.SingleOrDefaultAsync(u => u.Username == username);
+        var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
+        
         if (user is null || await HashPasswordAsync(password) != user.HashPassword)
             return null;
         return user;
     }
+
 }
