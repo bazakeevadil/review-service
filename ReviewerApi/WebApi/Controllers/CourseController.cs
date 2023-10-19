@@ -1,12 +1,9 @@
 ﻿using Application.Features.Courses.Command;
 using Application.Features.Courses.Request;
-using Azure.Core;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using System.Threading;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace WebApi.Controllers;
 
@@ -31,11 +28,31 @@ public class CourseController : ControllerBase
     }
 
     [AllowAnonymous]
+    [HttpPost("GetByName")]
+    public async Task<IActionResult> GetCourseByName(GetCourseByNameQuery request)
+    {
+        var user = await _mediator.Send(request);
+        if (user is not null)
+            return Ok(user);
+        return NotFound();
+    }
+
+    [AllowAnonymous]
+    [HttpPost("GetById")]
+    public async Task<IActionResult> GetCourseById(GetCourseByIdQuery request)
+    {
+        var course = await _mediator.Send(request);
+        if (course is not null)
+            return Ok(course);
+        return NotFound();
+    }
+
+    [AllowAnonymous]
     [HttpPost("AddCourse")]
     public async Task<IActionResult> AddCourse(CreateCourseCommand command)
     {
         if (command.Name.IsNullOrEmpty())
-            return BadRequest("Title cannot be empty");
+            return BadRequest("Name cannot be empty");
         if (command.Description.IsNullOrEmpty())
             return BadRequest("Description cannot be empty");
         var response = await _mediator.Send(command);
@@ -48,5 +65,22 @@ public class CourseController : ControllerBase
     {
         await _mediator.Send(command);
             return Ok("Course deleted.");
+    }
+
+    [AllowAnonymous]
+    [HttpDelete("DeleteCourseByName")]
+    public async Task<IActionResult> DeleteCourseByName(DeleteCourseByNameCommand command)
+    {
+        await _mediator.Send(command);
+        return Ok("Course deleted.");
+    }
+
+    [AllowAnonymous]
+    [HttpPatch("UpdateById")]
+    public async Task<IActionResult> Update(UpdateCouresCommand command)
+    {
+        var response = await _mediator.Send(command);
+        if (response is not null) return Ok(response);
+        return BadRequest();
     }
 }
