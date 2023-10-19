@@ -1,4 +1,9 @@
-﻿namespace Application.Features.Comments.Request;
+﻿using Application.Contract;
+using Domain.Repositories;
+using Mapster;
+using MediatR;
+
+namespace Application.Features.Comments.Request;
 
 public record GetAllCommentsQuery : IRequest<List<CommentDto>> { }
 
