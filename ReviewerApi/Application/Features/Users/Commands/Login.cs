@@ -1,6 +1,7 @@
 ﻿using Domain.Repositories;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -19,11 +20,13 @@ internal class LoginHandler : IRequestHandler<LoginQuery, string>
 {
     private readonly IConfiguration _configuration;
     private readonly IUserRepository _userRepository;
+    private readonly ILogger<LoginHandler> _logger;
 
-    public LoginHandler(IConfiguration configuration, IUserRepository userRepository)
+    public LoginHandler(IConfiguration configuration, IUserRepository userRepository, ILogger<LoginHandler> logger)
     {
         _configuration = configuration;
         _userRepository = userRepository;
+        _logger = logger;
     }
 
     public async Task<string> Handle(LoginQuery request, CancellationToken cancellationToken)
@@ -33,7 +36,7 @@ internal class LoginHandler : IRequestHandler<LoginQuery, string>
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Name, user.Email),
                 new Claim(ClaimTypes.Role, user.Role.ToString())
             };
             var tokenString = GetTokenString(claims, DateTime.UtcNow.AddMinutes(30));
@@ -44,7 +47,7 @@ internal class LoginHandler : IRequestHandler<LoginQuery, string>
 
     private string GetTokenString(List<Claim> claims, DateTime exp)
     {
-        var key = _configuration["Jwt"] ?? throw new Exception();
+        var key = _configuration["WEBAPI_JWT"] ?? throw new Exception("JWT not found");
         var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key));
 
         var token = new JwtSecurityToken(

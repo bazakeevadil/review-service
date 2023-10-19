@@ -26,7 +26,7 @@ internal class DeleteCourseCommandHandler
         var course = await _courseRepository.GetCourseByName(request.Name);
         if (course == null) return;
 
-        _courseRepository.DeleteByName(course);
+        _courseRepository.Delete(course);
         await _uow.CommitAsync();
     }
 }

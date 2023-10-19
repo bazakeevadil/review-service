@@ -1,12 +1,8 @@
 ﻿using Application.Features.Courses.Command;
 using Application.Features.Courses.Request;
-using Azure.Core;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using System.Threading;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace WebApi.Controllers;
 
@@ -20,7 +16,6 @@ public class CourseController : ControllerBase
         _mediator = mediator;
     }
 
-    [AllowAnonymous]
     [HttpGet("GetAll")]
     public async Task<IActionResult> GetAll()
     {
@@ -30,7 +25,6 @@ public class CourseController : ControllerBase
         return Ok(courses);
     }
 
-    [AllowAnonymous]
     [HttpPost("AddCourse")]
     public async Task<IActionResult> AddCourse(CreateCourseCommand command)
     {
@@ -42,7 +36,6 @@ public class CourseController : ControllerBase
         return Ok(response);
     }
 
-    [AllowAnonymous]
     [HttpDelete("DeleteCourseById")]
     public async Task<IActionResult> DeleteCourseById(DeleteCourseByIdCommand command)
     {

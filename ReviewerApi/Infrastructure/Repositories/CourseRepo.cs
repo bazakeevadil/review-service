@@ -27,7 +27,7 @@ public class CourseRepo : ICourseRepo
             _context.Courses.Remove(entity);
     }
 
-    public void DeleteByName(Course entity)
+    public void Delete(Course entity)
     {
         _context.Courses.Remove(entity);
     }

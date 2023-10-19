@@ -1,7 +1,6 @@
 ﻿using Application.Contract;
 using Application.Shared;
 using Domain.Entities;
-using Domain.Enum;
 using Domain.Repositories;
 using MediatR;
 
@@ -10,7 +9,7 @@ namespace Application.Features.Courses.Command;
 
 public record CreateCourseCommand : IRequest<CourseDto>
 {
-    public string? Name { get; init; }
+    public required string Name { get; init; }
     public string? Description { get; init; }
 }
 

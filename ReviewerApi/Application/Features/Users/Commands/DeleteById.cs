@@ -6,7 +6,7 @@ namespace Application.Features.Users.Commands;
 
 public record DeleteUsersByIdCommand : IRequest
 {
-    public required Guid Id { get; init; }
+    public required long Id { get; init; }
 }
 
 internal class DeleteUsersByIdCommandHandler : IRequestHandler<DeleteUsersByIdCommand>

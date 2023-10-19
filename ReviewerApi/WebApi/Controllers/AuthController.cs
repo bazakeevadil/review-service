@@ -41,9 +41,6 @@ public class AuthController : ControllerBase
         if (command.Username.IsNullOrEmpty()) return BadRequest("Username is null");
         if (command.Password.IsNullOrEmpty()) return BadRequest("Password is null");
 
-        if (((int)command.Role) < 1 || ((int)command.Role) > 2)
-            return BadRequest("Not the correct role");
-
         var response = await _mediator.Send(command);
 
         return Ok(response);

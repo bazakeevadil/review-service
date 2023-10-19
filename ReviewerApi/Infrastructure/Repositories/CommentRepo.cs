@@ -20,7 +20,7 @@ public class CommentRepo : ICommentRepo
         _context.Comments.Add(entity);
     }
 
-    public void DeleteByName(Comment entity)
+    public void Delete(Comment entity)
     {
         _context.Comments.Remove(entity);
     }
