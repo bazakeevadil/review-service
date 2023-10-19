@@ -11,8 +11,7 @@ public record GetCourseByNameQuery : IRequest<CourseDto?>
     public required string Name { get; init; }
 }
 
-internal class GetCourseByNameQueryHandler
-    : IRequestHandler<GetCourseByNameQuery, CourseDto?>
+internal class GetCourseByNameQueryHandler : IRequestHandler<GetCourseByNameQuery, CourseDto?>
 {
     private readonly ICourseRepo _courseRepository;
 
@@ -21,13 +20,22 @@ internal class GetCourseByNameQueryHandler
         _courseRepository = courseRepository;
     }
 
-    public async Task<CourseDto?> Handle(
-        GetCourseByNameQuery request, CancellationToken cancellationToken)
+    public async Task<CourseDto?> Handle(GetCourseByNameQuery request, CancellationToken cancellationToken)
     {
         var course = await _courseRepository.GetCourseByName(request.Name);
+        if (course is not null)
+        {
 
-        var response = course.Adapt<CourseDto?>();
-
-        return response;
+            var response = new CourseDto
+            {
+                Id = course.Id,
+                Name = request.Name,
+                Description = course.Description,
+            };
+            return response;
+        }
+        return default;
     }
 }
+
+

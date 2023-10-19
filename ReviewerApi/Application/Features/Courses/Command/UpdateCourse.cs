@@ -1,15 +1,12 @@
-﻿using Application.Contract;
-using Application.Shared;
-using Domain.Repositories;
-using MediatR;
+﻿using Application.Shared;
 
 namespace Application.Features.Courses.Command;
 
 public record UpdateCouresCommand : IRequest<CourseDto?>
 {
     public required long Id { get; init; }
-    public string? Name { get; init; }
-    public string? Description { get; init; }
+    public required string? Name { get; init; }
+    public required string? Description { get; init; }
 }
 
 internal class UpdateCourseHandler : IRequestHandler<UpdateCouresCommand, CourseDto?>
@@ -26,13 +23,10 @@ internal class UpdateCourseHandler : IRequestHandler<UpdateCouresCommand, Course
     public async Task<CourseDto?> Handle(UpdateCouresCommand command, CancellationToken cancellationToken)
     {
         var course = await _courseRepository.GetCourseById(command.Id);
-
         if (course is not null)
         {
-            if (!string.IsNullOrEmpty(command.Name))
-                course.Name = command.Name;
-            if (!string.IsNullOrEmpty(command.Description))
-                course.Description = command.Description;
+            course.Name = command.Name;
+            course.Description = command.Description;
 
             _courseRepository.Update(course);
             await _unitOfWork.CommitAsync();
@@ -43,10 +37,8 @@ internal class UpdateCourseHandler : IRequestHandler<UpdateCouresCommand, Course
                 Name = command.Name,    
                 Description = command.Description,
             };
-
             return response;
         }
-
         return default;
     }
 }

@@ -1,22 +1,16 @@
 
+using Application.Contract;
 using Domain.Repositories;
 using MediatR;
 
 namespace Application.Features.Courses.Request;
 
-public record GetCourseByIdQuery : IRequest<GetCourseByIdCommand?>
-{
-    public required long Id { get; init; }
-}
-
-public record GetCourseByIdCommand
+public record GetCourseByIdQuery : IRequest<CourseDto?>
 {
     public long Id { get; init; }
-    public string? Name { get; init; }
-    public string? Description { get; init; }
 }
 
-internal class GetCourseByIdHandler : IRequestHandler<GetCourseByIdQuery, GetCourseByIdCommand?>
+internal class GetCourseByIdHandler : IRequestHandler<GetCourseByIdQuery, CourseDto?>
 {
     private readonly ICourseRepo _courseRepository;
 
@@ -25,15 +19,17 @@ internal class GetCourseByIdHandler : IRequestHandler<GetCourseByIdQuery, GetCou
         _courseRepository = courseRepository;
     }
 
-    public async Task<GetCourseByIdCommand?> Handle(GetCourseByIdQuery request, CancellationToken cancellationToken)
+    public async Task<CourseDto?> Handle(GetCourseByIdQuery request, CancellationToken cancellationToken)
     {
-        var user = await _courseRepository.GetCourseById(request.Id);
-        if (user is not null)
+        var course = await _courseRepository.GetCourseById(request.Id);
+        if (course is not null)
         {
 
-            var response = new GetCourseByIdCommand
+            var response = new CourseDto
             {
                 Id = request.Id,
+                Name = course.Name,
+                Description = course.Description,
             };
             return response;
         }

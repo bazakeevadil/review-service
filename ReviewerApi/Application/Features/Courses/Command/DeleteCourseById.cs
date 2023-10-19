@@ -1,6 +1,4 @@
 ﻿using Application.Shared;
-using Domain.Repositories;
-using MediatR;
 
 namespace Application.Features.Courses.Command;
 
@@ -24,9 +22,10 @@ internal class DeleteCourseByIdCommandHandler : IRequestHandler<DeleteCourseById
     public async Task Handle(DeleteCourseByIdCommand command, CancellationToken cancellationToken)
     {
         var course = await _courseRepository.GetCourseById(command.Id);
-        if (course == null) return;
-
-        await _courseRepository.DeleteByIdAsync(course.Id);
-        await _unitOfWork.CommitAsync();
+        if (course is not null)
+        {
+            await _courseRepository.DeleteByIdAsync(course.Id);
+            await _unitOfWork.CommitAsync();
+        }
     }
 }
