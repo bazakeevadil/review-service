@@ -14,12 +14,12 @@ public record CreateCourseCommand : IRequest<CourseDto>
     public string? Description { get; init; }
 }
 
-internal class CreateUserCommandHandler : IRequestHandler<CreateCourseCommand, CourseDto>
+internal class CreateCourseCommandHandler : IRequestHandler<CreateCourseCommand, CourseDto>
 {
     private readonly ICourseRepo _courseRepo;
     private readonly IUnitOfWork _unitOfWork;
 
-    public CreateUserCommandHandler(ICourseRepo courseRepository, IUnitOfWork unitOfWork)
+    public CreateCourseCommandHandler(ICourseRepo courseRepository, IUnitOfWork unitOfWork)
     {
         _courseRepo = courseRepository;
         _unitOfWork = unitOfWork;

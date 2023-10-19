@@ -1,9 +1,12 @@
 ﻿using Application.Features.Courses.Command;
 using Application.Features.Courses.Request;
+using Azure.Core;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.Threading;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace WebApi.Controllers;
 
@@ -20,26 +23,6 @@ public class CourseController : ControllerBase
     [AllowAnonymous]
     [HttpGet("GetAll")]
     public async Task<IActionResult> GetAll()
-    {
-        var request = new GetAllCoursesQuery();
-        var courses = await _mediator.Send(request);
-        if (courses is null) return Ok("The list is empty");
-        return Ok(courses);
-    }
-
-    [AllowAnonymous]
-    [HttpGet("GetById")]
-    public async Task<IActionResult> GetById()
-    {
-        var request = new GetAllCoursesQuery();
-        var courses = await _mediator.Send(request);
-        if (courses is null) return Ok("The list is empty");
-        return Ok(courses);
-    }
-
-    [AllowAnonymous]
-    [HttpGet("GetByName")]
-    public async Task<IActionResult> GetByName()
     {
         var request = new GetAllCoursesQuery();
         var courses = await _mediator.Send(request);
@@ -66,22 +49,4 @@ public class CourseController : ControllerBase
         await _mediator.Send(command);
             return Ok("Course deleted.");
     }
-
-    [AllowAnonymous]
-    [HttpDelete("DeleteCourseByName")]
-    public async Task<IActionResult> DeleteCourseByName(DeleteCourseByNameCommand command)
-    {
-        await _mediator.Send(command);
-        return Ok("Course deleted.");
-    }
-
-    [AllowAnonymous]
-    [HttpPut("Update")]
-    public async Task<IActionResult> UpdateCourse(UpdateCouresCommand command)
-    {
-        var response = await _mediator.Send(command);
-        if (response is not null) return Ok(response);
-        return BadRequest();
-    }
-
 }

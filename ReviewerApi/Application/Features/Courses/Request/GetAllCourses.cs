@@ -11,9 +11,9 @@ internal class GetAllCoursesQueryHandler
 {
     private readonly ICourseRepo _courseRepository;
 
-    public GetAllCoursesQueryHandler(ICourseRepo courseRepository)
+    public GetAllCoursesQueryHandler(ICourseRepo userRepository)
     {
-        _courseRepository = courseRepository;
+        _courseRepository = userRepository;
     }
 
     public async Task<List<CourseDto>> Handle(
