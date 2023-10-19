@@ -36,6 +36,7 @@ internal class UpdateCourseHandler : IRequestHandler<UpdateCouresCommand, Course
 
             var response = new CourseDto
             {
+                Id = course.Id,
                 Name = command.Name,    
                 Description = command.Description,
             };
