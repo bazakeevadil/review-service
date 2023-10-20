@@ -43,10 +43,10 @@ public static class ConfigureServices
     {
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo
+            c.SwaggerDoc("v2", new OpenApiInfo
             {
-                Title = "RevievApi",
-                Version = "v1"
+                Title = "ReviewApi",
+                Version = "v2"
             });
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
             {
