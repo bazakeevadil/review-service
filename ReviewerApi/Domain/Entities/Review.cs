@@ -6,7 +6,7 @@ public class Review
 {
     public long Id { get; set; }
     public long UserId { get; set; }
-    public long CourseId { get; set; }
+    public required long CourseId { get; set; }
 
     [StringLength(2000)]
     public string? Content { get; set; }

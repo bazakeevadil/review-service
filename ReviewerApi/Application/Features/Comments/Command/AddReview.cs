@@ -4,8 +4,9 @@ namespace Application.Features.Reviews.Command;
 
 public record CreateReviewCommand : IRequest<ReviewDto>
 {
-    public required string Content { get; init; }
-    public long UserId { get; init; }
+    public required long CourseId { get; set; }
+    public required long UserId { get; set; }
+    public required string? Content { get; init; }
     public required short Grade { get; init; }
 }
 
@@ -24,9 +25,10 @@ internal class CreateReviewCommandHandler : IRequestHandler<CreateReviewCommand,
     {
         var review = new Review
         {
+            UserId = request.UserId,
             Content = request.Content,
             Grade = request.Grade,
-            UserId = request.UserId,
+            CourseId = request.CourseId,
         };
 
         _reviewRepo.Add(review);
@@ -34,8 +36,9 @@ internal class CreateReviewCommandHandler : IRequestHandler<CreateReviewCommand,
 
         var response = new ReviewDto
         {
+            CourseId = request.CourseId,
             Id = review.Id,
-            Content = review.Content,
+            Content = request.Content,
             Grade = request.Grade,
             UserId = request.UserId,
         };

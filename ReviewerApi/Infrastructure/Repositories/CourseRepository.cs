@@ -34,7 +34,7 @@ public class CourseRepository : ICourseRepository
 
     public Task<List<Course>> GetAllAsync()
     {
-        return _context.Courses.AsNoTracking().ToListAsync();
+        return _context.Courses.Include(c => c.Reviews).AsNoTracking().ToListAsync();
     }
 
     public async Task<Course?> GetCourseById(long id)
@@ -61,7 +61,7 @@ public class CourseRepository : ICourseRepository
     public async Task<List<(double, Course)>> SortCoursesByAverageGrade()
     {
         var courses = await _context.Courses.AsNoTracking().Include(c => c.Reviews).ToListAsync();
-        var sortedCourses = courses.Select(c => (c.Reviews.Average(com => com.Grade), c)).OrderBy(t => t.Item1).ToList();
+        var sortedCourses = courses.Select(c => (c.Reviews.Any() ? c.Reviews.Average(com => com.Grade) : 0, c)).OrderBy(t => t.Item1).ToList();
         return sortedCourses;
     }
 }

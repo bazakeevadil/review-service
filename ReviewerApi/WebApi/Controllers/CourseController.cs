@@ -80,4 +80,14 @@ public class CourseController : ControllerBase
         if (response is not null) return Ok(response);
         return BadRequest();
     }
+
+    [AllowAnonymous]
+    [HttpGet("sort-by-grade")]
+    public async Task<IActionResult> Sort()
+    {
+        var query = new SortCoursesByAGQuery();
+
+        var result = await _mediator.Send(query);
+        return Ok(result);
+    }
 }
