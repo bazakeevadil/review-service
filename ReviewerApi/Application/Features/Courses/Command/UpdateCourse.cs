@@ -5,25 +5,25 @@ using MediatR;
 
 namespace Application.Features.Courses.Command;
 
-public record UpdateCouresCommand : IRequest<CourseDto?>
+public record UpdateCourseCommand : IRequest<CourseDto?>
 {
     public required long Id { get; init; }
     public required string? Name { get; init; }
     public required string? Description { get; init; }
 }
 
-internal class UpdateCourseHandler : IRequestHandler<UpdateCouresCommand, CourseDto?>
+internal class UpdateCourseCommandHandler : IRequestHandler<UpdateCourseCommand, CourseDto?>
 {
     private readonly ICourseRepo _courseRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateCourseHandler(ICourseRepo courseRepository, IUnitOfWork unitOfWork)
+    public UpdateCourseCommandHandler(ICourseRepo courseRepository, IUnitOfWork unitOfWork)
     {
         _courseRepository = courseRepository;
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<CourseDto?> Handle(UpdateCouresCommand command, CancellationToken cancellationToken)
+    public async Task<CourseDto?> Handle(UpdateCourseCommand command, CancellationToken cancellationToken)
     {
         var course = await _courseRepository.GetCourseById(command.Id);
         if (course is not null)

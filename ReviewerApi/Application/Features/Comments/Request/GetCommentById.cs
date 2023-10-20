@@ -9,11 +9,11 @@ public record GetCommentByIdQuery : IRequest<CommentDto?>
     public long Id { get; init; }
 }
 
-internal class GetCommentByIdHandler : IRequestHandler<GetCommentByIdQuery, CommentDto?>
+internal class GetCommentByIdQueryHandler : IRequestHandler<GetCommentByIdQuery, CommentDto?>
 {
     private readonly ICommentRepo _commentRepository;
 
-    public GetCommentByIdHandler(ICommentRepo commentRepository)
+    public GetCommentByIdQueryHandler(ICommentRepo commentRepository)
     {
         _commentRepository = commentRepository;
     }

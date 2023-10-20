@@ -18,7 +18,7 @@ public class CourseController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpGet("GetAll")]
+    [HttpGet("All")]
     public async Task<IActionResult> GetAll()
     {
         var request = new GetAllCoursesQuery();
@@ -28,7 +28,7 @@ public class CourseController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpPost("GetByName")]
+    [HttpPost("ByName")]
     public async Task<IActionResult> GetCourseByName(GetCourseByNameQuery request)
     {
         var user = await _mediator.Send(request);
@@ -38,7 +38,7 @@ public class CourseController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpPost("GetById")]
+    [HttpPost("ById")]
     public async Task<IActionResult> GetCourseById(GetCourseByIdQuery request)
     {
         var course = await _mediator.Send(request);
@@ -48,7 +48,7 @@ public class CourseController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpPost("AddCourse")]
+    [HttpPost("Add")]
     public async Task<IActionResult> AddCourse(CreateCourseCommand command)
     {
         if (command.Name.IsNullOrEmpty())
@@ -60,7 +60,7 @@ public class CourseController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpDelete("DeleteCourseById")]
+    [HttpDelete("ById")]
     public async Task<IActionResult> DeleteCourseById(DeleteCourseByIdCommand command)
     {
         await _mediator.Send(command);
@@ -68,7 +68,7 @@ public class CourseController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpDelete("DeleteCourseByName")]
+    [HttpDelete("ByName")]
     public async Task<IActionResult> DeleteCourseByName(DeleteCourseByNameCommand command)
     {
         await _mediator.Send(command);
@@ -76,8 +76,8 @@ public class CourseController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpPatch("UpdateById")]
-    public async Task<IActionResult> Update(UpdateCouresCommand command)
+    [HttpPatch("ById")]
+    public async Task<IActionResult> Update(UpdateCourseCommand command)
     {
         var response = await _mediator.Send(command);
         if (response is not null) return Ok(response);

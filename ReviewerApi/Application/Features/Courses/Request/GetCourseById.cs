@@ -1,8 +1,3 @@
-
-using Application.Contract;
-using Domain.Repositories;
-using MediatR;
-
 namespace Application.Features.Courses.Request;
 
 public record GetCourseByIdQuery : IRequest<CourseDto?>
@@ -10,11 +5,11 @@ public record GetCourseByIdQuery : IRequest<CourseDto?>
     public long Id { get; init; }
 }
 
-internal class GetCourseByIdHandler : IRequestHandler<GetCourseByIdQuery, CourseDto?>
+internal class GetCourseByIdQueryHandler : IRequestHandler<GetCourseByIdQuery, CourseDto?>
 {
     private readonly ICourseRepo _courseRepository;
 
-    public GetCourseByIdHandler(ICourseRepo courseRepository)
+    public GetCourseByIdQueryHandler(ICourseRepo courseRepository)
     {
         _courseRepository = courseRepository;
     }

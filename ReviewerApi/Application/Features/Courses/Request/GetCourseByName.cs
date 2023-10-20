@@ -1,10 +1,4 @@
-﻿using Application.Contract;
-using Domain.Repositories;
-using Mapster;
-using MediatR;
-
-namespace Application.Features.Courses.Request;
-
+﻿namespace Application.Features.Courses.Request;
 
 public record GetCourseByNameQuery : IRequest<CourseDto?>
 {

@@ -1,13 +1,8 @@
-﻿using Application.Contract;
-using Domain.Repositories;
-using Mapster;
-using MediatR;
-
-namespace Application.Features.Courses.Request;
-public record GetAllCoursesQuery : IRequest<List<Contract.CourseDto>> { }
+﻿namespace Application.Features.Courses.Request;
+public record GetAllCoursesQuery : IRequest<List<CourseDto>> { }
 
 internal class GetAllCoursesQueryHandler
-    : IRequestHandler<GetAllCoursesQuery, List<Contract.CourseDto>>
+    : IRequestHandler<GetAllCoursesQuery, List<CourseDto>>
 {
     private readonly ICourseRepo _courseRepository;
 
@@ -16,12 +11,12 @@ internal class GetAllCoursesQueryHandler
         _courseRepository = commentRepository;
     }
 
-    public async Task<List<Contract.CourseDto>> Handle(
+    public async Task<List<CourseDto>> Handle(
         GetAllCoursesQuery request, CancellationToken cancellationToken)
     {
         var comment = await _courseRepository.GetAllAsync();
 
-        var response = comment.Adapt<List<Contract.CourseDto>>();
+        var response = comment.Adapt<List<CourseDto>>();
 
         return response;
     }

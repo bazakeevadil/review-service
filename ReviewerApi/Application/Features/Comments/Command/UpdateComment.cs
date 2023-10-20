@@ -12,12 +12,12 @@ public record UpdateCommentCommand : IRequest<CommentDto?>
     public required short Grade { get; init; }
 }
 
-internal class UpdateCommentHandler : IRequestHandler<UpdateCommentCommand, CommentDto?>
+internal class UpdateCommentCommandHandler : IRequestHandler<UpdateCommentCommand, CommentDto?>
 {
     private readonly ICommentRepo _commentRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateCommentHandler(ICommentRepo commentRepository, IUnitOfWork unitOfWork)
+    public UpdateCommentCommandHandler(ICommentRepo commentRepository, IUnitOfWork unitOfWork)
     {
         _commentRepository = commentRepository;
         _unitOfWork = unitOfWork;
