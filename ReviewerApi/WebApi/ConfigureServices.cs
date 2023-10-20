@@ -70,4 +70,13 @@ public static class ConfigureServices
 
         return services;
     }
+
+    public static IServiceCollection AddAnyCors(
+       this IServiceCollection services)
+    {
+        services.AddCors(o => o.AddPolicy("DefaultPolicy",
+        builder => { builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); }));
+
+        return services;
+    }
 }

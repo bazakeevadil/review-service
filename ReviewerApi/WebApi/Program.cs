@@ -16,10 +16,9 @@ builder.Services.AddDataProtection().UseCryptographicAlgorithms(
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-
 builder.Services.AddAuth(builder.Configuration);
 builder.Services.AddSwagger();
-
+builder.Services.AddAnyCors();
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
