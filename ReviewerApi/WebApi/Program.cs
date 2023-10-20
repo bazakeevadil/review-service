@@ -7,8 +7,15 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using WebApi;
 using Infrastructure.Data;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
 
 builder.Services.AddDataProtection().UseCryptographicAlgorithms(
     new AuthenticatedEncryptorConfiguration
@@ -27,7 +34,6 @@ builder.Services.AddSwagger();
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
-
 
 builder.Services.AddAuthorization(opts =>
 {

@@ -1,6 +1,5 @@
 ﻿using Application.Features.Users.Commands;
 using Application.Features.Users.Requests;
-using Domain.Enum;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +7,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace WebApi.Controllers;
 
-[ApiController, Route("api/user")]
+[ApiController, Route("api/users")]
 public class UserController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -33,7 +32,7 @@ public class UserController : ControllerBase
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpPost("byemail")]
+    [HttpGet("by-email/{email}")]
     [SwaggerOperation("Получает пользователя по имени", "Позволяет получить пользователя по имени. Только для админа!!!")]
     [SwaggerResponse(200, "Успешно получен")]
     [SwaggerResponse(400, "Ошибка валидации")]
@@ -51,7 +50,7 @@ public class UserController : ControllerBase
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpPost("byid")]
+    [HttpGet("{id}")]
     [SwaggerOperation("Получает пользователя по id", "Позволяет получить пользователя по id. Только для админа!!!")]
     [SwaggerResponse(200, "Успешно получен")]
     [SwaggerResponse(400, "Ошибка валидации")]
@@ -69,27 +68,19 @@ public class UserController : ControllerBase
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpPatch("update")]
+    [HttpPatch]
     [SwaggerOperation("Редактирует пользователя", "Позволяет редактировать пользователя. Только для админа!!!")]
     [SwaggerResponse(200, "Успешно редактировано")]
     [SwaggerResponse(400, "Ошибка валидации")]
-    public async Task<IActionResult> Update(
-        string email,string password, Role role)
+    public async Task<IActionResult> Update(UpdateUserCommand request)
     {
-        var request = new UpdateUserCommand
-        {
-            Email = email,
-            Password = password,
-            Role = role,
-        };
-
         await _mediator.Send(request);
 
         return Ok();
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpDelete("byname")]
+    [HttpDelete("by-email/{email}")]
     [SwaggerOperation("Удаляет пользователя по имени", "Позволяет удалить пользователя по имени. Только для админа!!!")]
     [SwaggerResponse(200, "Успешно удалено")]
     [SwaggerResponse(400, "Ошибка валидации")]
@@ -107,7 +98,7 @@ public class UserController : ControllerBase
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpDelete("byid")]
+    [HttpDelete("{id}")]
     [SwaggerOperation("Удаляет пользователя по Id", "Позволяет удалить пользователя по id. Только для админа!!!")]
     [SwaggerResponse(200, "Успешно удалено")]
     [SwaggerResponse(400, "Ошибка валидации")]

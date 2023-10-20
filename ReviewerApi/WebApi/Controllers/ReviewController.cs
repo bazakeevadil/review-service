@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace WebApi.Controllers;
 
-[ApiController, Route("api/review")]
+[ApiController, Route("api/reviews")]
 public class ReviewController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -18,7 +18,7 @@ public class ReviewController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpGet("all")]
+    [HttpGet]
     public async Task<IActionResult> GetAll()
     {
         var request = new GetAllReviewsQuery();
@@ -28,9 +28,10 @@ public class ReviewController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpPost("byId")]
-    public async Task<IActionResult> GetReviewById(GetReviewByIdQuery request)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetReviewById(long id)
     {
+        var request = new GetReviewByIdQuery { Id = id };
         var review = await _mediator.Send(request);
         if (review is not null)
             return Ok(review);
@@ -38,7 +39,7 @@ public class ReviewController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpPost("add")]
+    [HttpPost]
     public async Task<IActionResult> AddReview(CreateReviewCommand command)
     {
         if (command.Content.IsNullOrEmpty())
@@ -48,15 +49,16 @@ public class ReviewController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpDelete("byId")]
-    public async Task<IActionResult> DeleteReviewById(DeleteReviewByIdCommand command)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteReviewById(long id)
     {
-        await _mediator.Send(command);
+        var request = new DeleteReviewByIdCommand { Id = id };
+        await _mediator.Send(request);
         return NoContent();
     }
 
     [AllowAnonymous]
-    [HttpPatch("byId")]
+    [HttpPatch]
     public async Task<IActionResult> UpdateReviewById(UpdateReviewCommand command)
     {
         var response = await _mediator.Send(command);

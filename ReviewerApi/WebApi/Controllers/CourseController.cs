@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace WebApi.Controllers;
 
-[ApiController, Route("api/course")]
+[ApiController, Route("api/courses")]
 public class CourseController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -18,7 +18,7 @@ public class CourseController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpGet("all")]
+    [HttpGet]
     public async Task<IActionResult> GetAll()
     {
         var request = new GetAllCoursesQuery();
@@ -28,9 +28,10 @@ public class CourseController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpPost("byName")]
-    public async Task<IActionResult> GetCourseByName(GetCourseByNameQuery request)
+    [HttpGet("by-name/{name}")]
+    public async Task<IActionResult> GetCourseByName(string name)
     {
+        var request = new GetCourseByNameQuery() { Name = name };
         var user = await _mediator.Send(request);
         if (user is not null)
             return Ok(user);
@@ -38,9 +39,10 @@ public class CourseController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpPost("byId")]
-    public async Task<IActionResult> GetCourseById(GetCourseByIdQuery request)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetCourseById(long id)
     {
+        var request = new GetCourseByIdQuery() { Id = id };
         var course = await _mediator.Send(request);
         if (course is not null)
             return Ok(course);
@@ -48,7 +50,7 @@ public class CourseController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpPost("add")]
+    [HttpPost]
     public async Task<IActionResult> AddCourse(CreateCourseCommand command)
     {
         if (command.Name.IsNullOrEmpty())
@@ -60,23 +62,25 @@ public class CourseController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpDelete("byId")]
-    public async Task<IActionResult> DeleteCourseById(DeleteCourseByIdCommand command)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteCourseById(long id)
     {
-        await _mediator.Send(command);
-            return Ok("Course deleted.");
+        var request = new DeleteCourseByIdCommand { Id = id };
+        await _mediator.Send(request);
+        return NoContent();
     }
 
     [AllowAnonymous]
-    [HttpDelete("byName")]
-    public async Task<IActionResult> DeleteCourseByName(DeleteCourseByNameCommand command)
+    [HttpDelete("by-name/{name}")]
+    public async Task<IActionResult> DeleteCourseByName(string name)
     {
-        await _mediator.Send(command);
+        var request = new DeleteCourseByNameCommand { Name = name };
+        await _mediator.Send(request);
         return Ok("Course deleted.");
     }
 
     [AllowAnonymous]
-    [HttpPatch("byId")]
+    [HttpPatch]
     public async Task<IActionResult> Update(UpdateCourseCommand command)
     {
         var response = await _mediator.Send(command);
