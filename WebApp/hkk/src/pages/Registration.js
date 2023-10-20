@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import * as Yup from 'yup'
 import { Formik, Form } from 'formik';
-import axios from 'axios';
+import { register } from '../redux/action';
+import { useDispatch } from 'react-redux';
 
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email()
   .min(5, 'Cлишком короткое имя')
   .max(50, 'Слишком длинное имя')
-  .required('Required')
-  .matches(/^[aA-zZ]+$/, "Forbidden symbol"),
+  .required('Required'),
+  // .matches(/^[aA-zZ]+$/, "Forbidden symbol"),
   password1: Yup.string()
   .required('Required')
   .min(5, 'Слишком короткий пароль')
@@ -21,27 +22,14 @@ const SignupSchema = Yup.object().shape({
  });
 
  const Registration = () => {
-    // const addList = async () => {
-    //     const config = {
-    //       method:"POST",
-    //       url:"http://localhost/api/auth/register" ,
-    //       headers:{
-    //         "Content-Type" : "application/json"
-    //       },
-    //       data:JSON.stringify({
-    //     '  username':'fjfjfj',
-    //   '  password':'ygfseg6',
-    //   'role' :1
-    //       })
-      
-    //   }
-    //   const {data} = await axios (config)
-    //   console.log(data);}
-    //   addList()
-    const [password,setPassword] = useState('')
-    const handleInput = (e) =>{
-setPassword(e.target.value)
-    }
+   const dispatch = useDispatch()
+   const registrate = (values) =>{
+    dispatch(register(values))
+   }
+ 
+//     const handleInput = (e) =>{
+// setPassword(e.target.value)
+//     }
     
   return(
     <div className='login'>
@@ -54,6 +42,9 @@ setPassword(e.target.value)
           password2:''
         }}
         validationSchema={SignupSchema}
+        onSubmit={values => {
+          registrate(values)
+        }}
        >
 
         {
@@ -61,10 +52,11 @@ setPassword(e.target.value)
 
             <Form className='login__form'>
               <input
-                type="text"
+                type="email"
                 name="email"
                 className="login__inp"
                 placeholder="email"
+           
                 onChange={handleChange} />
 
               {errors.email && touched.email? <div>{errors.email}</div> : null}
@@ -74,8 +66,9 @@ setPassword(e.target.value)
                 name="password1"
                 className="login__inp"
                 placeholder="Пароль"
+         
                 onChange={handleChange}
-                onInput={handleInput}
+                // onInput={handleInput}
               />
               {errors.password1 && touched.password1? <div>{errors.password1}</div> : null}
               <input

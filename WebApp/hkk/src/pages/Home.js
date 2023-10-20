@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Home = () => {
-  return 
+  return (
     <div>
              <div className="main">
 <div className="container">
@@ -167,6 +167,7 @@ const Home = () => {
             </div>
         </div>
     </div>
+
   )
 }
 

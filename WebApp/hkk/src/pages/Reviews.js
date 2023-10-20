@@ -31,18 +31,7 @@ const Reviews = () => {
                         </div>
                     </div>
                     <div className="comments__wrapper">
-                        <div className="comments__card">
-                            <div className="comments__text">
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur repellat eos recusandae beatae cumque laudantium, distinctio sunt? Sed eligendi asperiores sint mollitia, necessitatibus aliquam nulla possimus commodi, eaque non voluptas?
-                            </div>
-                            <p className="comments__user">
-                                kikiki lololo
-                            </p>
-                            <p className="comments__date">12.12.1212</p>
-                            <p className="comments__rating">
-                                ✭✭✭
-                            </p>
-                        </div>
+                     
                         <div className="comments__card">
                             <div className="comments__text">
                                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur repellat eos recusandae beatae cumque laudantium, distinctio sunt? Sed eligendi asperiores sint mollitia, necessitatibus aliquam nulla possimus commodi, eaque non voluptas?

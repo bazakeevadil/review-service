@@ -21,7 +21,7 @@ const Courses = () => {
                     120 отзывов
                 </p>
                <Link to={'/courses/1'}>
-                <button>
+                <button className='courses__btn'>
                     перейти
                     </button>
                 </Link>

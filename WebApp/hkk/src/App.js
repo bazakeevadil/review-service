@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 import Layout from "./components/Layout";
 import Courses from "./pages/Courses";
 import Reviews from "./pages/Reviews";
-
+import User from "./pages/User";
 
 const  App =( ) => {
 
@@ -23,6 +23,7 @@ const  App =( ) => {
       <Route index element={<Home />}/> 
       <Route path="/courses" element= {<Courses/>}/>
       <Route path="/courses/:id" element= {<Reviews/>}/>
+      <Route path="/user" element = {<User/>}/>
       </Route>
         <Route path="/banner" element= {<Banner/>}/>
         <Route path="/login" element={<Login />}/>

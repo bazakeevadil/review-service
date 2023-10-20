@@ -17,6 +17,8 @@
   width: 100%;
   position: fixed;
   top:0;
+  z-index: 10;
+  opacity: 0.7;
   /* opacity: 0.4; */
 }
 .header__wrapper{
@@ -51,7 +53,9 @@ height: 100%;
   margin-left: 15px;
 
 }
-
+.header__links{
+  font-size: 25px;
+}
 .header__link1{
 margin-right: 15px;
  
@@ -194,7 +198,7 @@ margin-right: 15px;
   background-repeat: no-repeat;
   background-size: cover;
 opacity: 0.9;
-  padding: 100px 0 170px;
+  padding: 200px 0 170px;
 }
 .main__wrapper{
    text-align: center;
@@ -344,6 +348,17 @@ text-align: center;
 .courses__rating{
   margin: 10px;
 }
+.courses__btn{
+background: #263959;
+color: white;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid white;
+}
+.courses__btn:hover{
+  background: white;
+  color: #263959;
+}
 
 
 .reviews__text{
@@ -376,6 +391,8 @@ text-align: center;
 .comments__card{
   border: 1px solid black;
 padding: 15px 10px;
+display: flex;
+align-items: center;
 }
 .comments__card:not(:last-child){
   margin-bottom:15px ;
@@ -383,6 +400,16 @@ padding: 15px 10px;
 .comments__box{
   display: flex;
   justify-content: space-between;
+}
+.comments__delete{
+  width: 50px;
+  height: 50px;
+  margin-bottom: 30px;
+}
+.comments__delete img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 
@@ -422,8 +449,26 @@ padding: 15px 10px;
   margin: 0 auto;
   border-radius: 10px;
   border: 1px solid white;
+  color: white;
 }
 .addition__btn:hover{
-  background-color:#263959;
-  color: white;
+  background-color:white;
+  color:#263959;
+}
+/* /// */
+.user{
+  padding: 200px 0;
+}
+.user__img{
+  width: 300px;
+  height: 300px;
+}
+.user__img img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.user__name{
+font-size: 20px;
+margin-bottom: 15px;
 }

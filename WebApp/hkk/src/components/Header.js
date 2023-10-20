@@ -1,10 +1,10 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { NumberSchema } from 'yup'
+
 
 const Header = () => {
 
-    const token = true
+    const token = false
     return (
         <>
             <header className='header'>
@@ -23,9 +23,11 @@ const Header = () => {
                                  <NavLink to='/courses' className='header__link2'>Курсы</NavLink>
                         
                                 </div>
+                                <NavLink to = '/user'>
                                 <div className='header__user'>
                                     <img src='https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png' />
                                 </div>
+                                </NavLink>
                             </div> :
                             <div className="header__login">
                                 <NavLink to='/login'>
