@@ -1,30 +1,30 @@
-﻿namespace Application.Features.Comments.Request;
+﻿namespace Application.Features.Reviews.Request;
 
-public record GetCommentByIdQuery : IRequest<CommentDto?>
+public record GetReviewByIdQuery : IRequest<ReviewDto?>
 {
     public long Id { get; init; }
 }
 
-internal class GetCommentByIdQueryHandler : IRequestHandler<GetCommentByIdQuery, CommentDto?>
+internal class GetReviewByIdQueryHandler : IRequestHandler<GetReviewByIdQuery, ReviewDto?>
 {
-    private readonly ICommentRepository _commentRepository;
+    private readonly IReviewRepository _reviewRepository;
 
-    public GetCommentByIdQueryHandler(ICommentRepository commentRepository)
+    public GetReviewByIdQueryHandler(IReviewRepository reviewRepository)
     {
-        _commentRepository = commentRepository;
+        _reviewRepository = reviewRepository;
     }
 
-    public async Task<CommentDto?> Handle(GetCommentByIdQuery request, CancellationToken cancellationToken)
+    public async Task<ReviewDto?> Handle(GetReviewByIdQuery request, CancellationToken cancellationToken)
     {
-        var course = await _commentRepository.GetCommentById(request.Id);
-        if (course is not null)
+        var review = await _reviewRepository.GetById(request.Id);
+        if (review is not null)
         {
 
-            var response = new CommentDto
+            var response = new ReviewDto
             {
                 Id = request.Id,
-                Content = course.Content,
-                Grade = course.GradeForCourse,
+                Content = review.Content,
+                Grade = review.Grade,
             };
             return response;
         }

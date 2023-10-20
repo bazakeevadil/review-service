@@ -1,29 +1,29 @@
 ﻿using Application.Shared;
 
-namespace Application.Features.Comments.Command;
+namespace Application.Features.Reviews.Command;
 
-public record DeleteCommentByIdCommand : IRequest
+public record DeleteReviewByIdCommand : IRequest
 {
     public required long Id { get; init; }
 }
 
-internal class DeleteCommentByIdCommandHandler : IRequestHandler<DeleteCommentByIdCommand>
+internal class DeleteReviewByIdCommandHandler : IRequestHandler<DeleteReviewByIdCommand>
 {
-    private readonly ICommentRepository _commentRepository;
+    private readonly IReviewRepository _reviewRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteCommentByIdCommandHandler(ICommentRepository commentRepository, IUnitOfWork unitOfWork)
+    public DeleteReviewByIdCommandHandler(IReviewRepository reviewRepository, IUnitOfWork unitOfWork)
     {
-        _commentRepository = commentRepository;
+        _reviewRepository = reviewRepository;
         _unitOfWork = unitOfWork;
     }
 
-    public async Task Handle(DeleteCommentByIdCommand command, CancellationToken cancellationToken)
+    public async Task Handle(DeleteReviewByIdCommand command, CancellationToken cancellationToken)
     {
-        var comment = await _commentRepository.GetCommentById(command.Id);
-        if (comment is not null)
+        var review = await _reviewRepository.GetById(command.Id);
+        if (review is not null)
         {
-            await _commentRepository.DeleteCommentByIdAsync(comment.Id);
+            await _reviewRepository.DeleteByIdAsync(review.Id);
             await _unitOfWork.CommitAsync();
         }
     }

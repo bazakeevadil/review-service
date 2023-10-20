@@ -1,5 +1,5 @@
-﻿using Application.Features.Comments.Command;
-using Application.Features.Comments.Request;
+﻿using Application.Features.Reviews.Command;
+using Application.Features.Reviews.Request;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,12 +7,12 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace WebApi.Controllers;
 
-[ApiController, Route("api/comment")]
-public class CommentController : ControllerBase
+[ApiController, Route("api/review")]
+public class ReviewController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public CommentController(IMediator mediator)
+    public ReviewController(IMediator mediator)
     {
         _mediator = mediator;
     }
@@ -21,25 +21,25 @@ public class CommentController : ControllerBase
     [HttpGet("all")]
     public async Task<IActionResult> GetAll()
     {
-        var request = new GetAllCommentsQuery();
-        var comments = await _mediator.Send(request);
-        if (comments is null) return Ok("The list is empty");
-        return Ok(comments);
+        var request = new GetAllReviewsQuery();
+        var reviews = await _mediator.Send(request);
+        if (reviews is null) return Ok("The list is empty");
+        return Ok(reviews);
     }
 
     [AllowAnonymous]
     [HttpPost("byId")]
-    public async Task<IActionResult> GetCommentById(GetCommentByIdQuery request)
+    public async Task<IActionResult> GetReviewById(GetReviewByIdQuery request)
     {
-        var comment = await _mediator.Send(request);
-        if (comment is not null)
-            return Ok(comment);
+        var review = await _mediator.Send(request);
+        if (review is not null)
+            return Ok(review);
         return NotFound();
     }
 
     [AllowAnonymous]
     [HttpPost("add")]
-    public async Task<IActionResult> AddComment(CreateCommentCommand command)
+    public async Task<IActionResult> AddReview(CreateReviewCommand command)
     {
         if (command.Content.IsNullOrEmpty())
             return BadRequest("Content cannot be empty");
@@ -49,15 +49,15 @@ public class CommentController : ControllerBase
 
     [AllowAnonymous]
     [HttpDelete("byId")]
-    public async Task<IActionResult> DeleteCommentById(DeleteCommentByIdCommand command)
+    public async Task<IActionResult> DeleteReviewById(DeleteReviewByIdCommand command)
     {
         await _mediator.Send(command);
-        return Ok("Comment deleted.");
+        return NoContent();
     }
 
     [AllowAnonymous]
     [HttpPatch("byId")]
-    public async Task<IActionResult> UpdateCommentById(UpdateCommentCommand command)
+    public async Task<IActionResult> UpdateReviewById(UpdateReviewCommand command)
     {
         var response = await _mediator.Send(command);
         if (response is not null) return Ok(response);

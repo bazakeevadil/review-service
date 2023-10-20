@@ -21,7 +21,29 @@ namespace Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Entities.Comment", b =>
+            modelBuilder.Entity("Domain.Entities.Course", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Review", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,7 +52,8 @@ namespace Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<long>("CourseId")
                         .HasColumnType("bigint");
@@ -47,27 +70,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Course", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Courses");
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -80,8 +83,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("HashPassword")
                         .IsRequired()
@@ -105,16 +108,16 @@ namespace Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Domain.Entities.Comment", b =>
+            modelBuilder.Entity("Domain.Entities.Review", b =>
                 {
                     b.HasOne("Domain.Entities.Course", "Course")
-                        .WithMany("Comments")
+                        .WithMany("Reviews")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.User", "User")
-                        .WithMany("Comments")
+                        .WithMany("Reviews")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -126,12 +129,12 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Course", b =>
                 {
-                    b.Navigation("Comments");
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
-                    b.Navigation("Comments");
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

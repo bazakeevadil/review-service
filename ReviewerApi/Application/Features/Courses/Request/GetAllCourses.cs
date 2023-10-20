@@ -6,17 +6,17 @@ internal class GetAllCoursesQueryHandler
 {
     private readonly ICourseRepository _courseRepository;
 
-    public GetAllCoursesQueryHandler(ICourseRepository commentRepository)
+    public GetAllCoursesQueryHandler(ICourseRepository courseRepository)
     {
-        _courseRepository = commentRepository;
+        _courseRepository = courseRepository;
     }
 
     public async Task<List<CourseDto>> Handle(
         GetAllCoursesQuery request, CancellationToken cancellationToken)
     {
-        var comment = await _courseRepository.GetAllAsync();
+        var courses = await _courseRepository.GetAllAsync();
 
-        var response = comment.Adapt<List<CourseDto>>();
+        var response = courses.Adapt<List<CourseDto>>();
 
         return response;
     }

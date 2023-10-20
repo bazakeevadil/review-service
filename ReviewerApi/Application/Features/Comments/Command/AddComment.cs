@@ -1,39 +1,39 @@
 using Application.Shared;
 
-namespace Application.Features.Comments.Command;
+namespace Application.Features.Reviews.Command;
 
-public record CreateCommentCommand : IRequest<CommentDto>
+public record CreateReviewCommand : IRequest<ReviewDto>
 {
     public required string? Content { get; init; }
     public required short Grade { get; init; }
 }
 
-internal class CreateCommentCommandHandler : IRequestHandler<CreateCommentCommand, CommentDto>
+internal class CreateReviewCommandHandler : IRequestHandler<CreateReviewCommand, ReviewDto>
 {
-    private readonly ICommentRepository _commentRepo;
+    private readonly IReviewRepository _reviewRepo;
     private readonly IUnitOfWork _unitOfWork;
 
-    public CreateCommentCommandHandler(ICommentRepository commentRepository, IUnitOfWork unitOfWork)
+    public CreateReviewCommandHandler(IReviewRepository reviewRepository, IUnitOfWork unitOfWork)
     {
-        _commentRepo = commentRepository;
+        _reviewRepo = reviewRepository;
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<CommentDto> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
+    public async Task<ReviewDto> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
     {
-        var comment = new Comment
+        var review = new Review
         {
             Content = request.Content,
-            GradeForCourse = request.Grade,
+            Grade = request.Grade,
         };
 
-        _commentRepo.Add(comment);
+        _reviewRepo.Add(review);
         await _unitOfWork.CommitAsync();
 
-        var response = new CommentDto
+        var response = new ReviewDto
         {
-            Id = comment.Id,
-            Content = comment.Content,
+            Id = review.Id,
+            Content = review.Content,
             Grade = request.Grade,
         };
 

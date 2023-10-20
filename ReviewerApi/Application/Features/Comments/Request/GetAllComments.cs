@@ -1,23 +1,23 @@
-﻿namespace Application.Features.Comments.Request;
+﻿namespace Application.Features.Reviews.Request;
 
-public record GetAllCommentsQuery : IRequest<List<CommentDto>> { }
+public record GetAllReviewsQuery : IRequest<List<ReviewDto>> { }
 
-internal class GetAllCommentQueryHandler
-    : IRequestHandler<GetAllCommentsQuery, List<CommentDto>>
+internal class GetAllReviewsQueryHandler
+    : IRequestHandler<GetAllReviewsQuery, List<ReviewDto>>
 {
-    private readonly ICommentRepository _commentRepository;
+    private readonly IReviewRepository _reviewRepository;
 
-    public GetAllCommentQueryHandler(ICommentRepository commentRepository)
+    public GetAllReviewsQueryHandler(IReviewRepository reviewRepository)
     {
-        _commentRepository = commentRepository;
+        _reviewRepository = reviewRepository;
     }
 
-    public async Task<List<CommentDto>> Handle(
-        GetAllCommentsQuery request, CancellationToken cancellationToken)
+    public async Task<List<ReviewDto>> Handle(
+        GetAllReviewsQuery request, CancellationToken cancellationToken)
     {
-        var comment = await _commentRepository.GetAllAsync();
+        var review = await _reviewRepository.GetAllAsync();
         
-        var response = comment.Adapt<List<CommentDto>>();
+        var response = review.Adapt<List<ReviewDto>>();
 
         return response;
     }

@@ -1,6 +1,6 @@
 ﻿namespace Application.Contract;
 
-public class CommentDto
+public class ReviewDto
 {
     public required long Id { get; init; }
     public  long UserId { get; init; }

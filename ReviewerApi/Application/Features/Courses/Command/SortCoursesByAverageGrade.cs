@@ -1,32 +1,30 @@
-﻿using System.Collections.Generic;
-
-namespace Application.Features.Courses.Command;
+﻿namespace Application.Features.Courses.Command;
 
 
 public record SortCoursesByAGQuery : IRequest<float> { }
 
 internal class SCBAGQueryHandler : IRequestHandler<SortCoursesByAGQuery, float>
 {
-    private readonly ICommentRepository _commentRepository;
+    private readonly IReviewRepository _reviewRepository;
     private readonly ICourseRepository _courseRepository;
 
-    public SCBAGQueryHandler(ICommentRepository commentRepository, ICourseRepository courseRepository)
+    public SCBAGQueryHandler(IReviewRepository reviewRepository, ICourseRepository courseRepository)
     {
-        _commentRepository = commentRepository;
+        _reviewRepository = reviewRepository;
         _courseRepository = courseRepository;
     }
 
     public async Task<float> Handle(
         SortCoursesByAGQuery request, CancellationToken cancellationToken)
     {
-        var comments = await _commentRepository.GetAllAsync();
+        var reviews = await _reviewRepository.GetAllAsync();
 
         int current = 0;
         float value = 0;
 
-        foreach (var item in comments)
+        foreach (var item in reviews)
         {
-            value += item.GradeForCourse;
+            value += item.Grade;
             current++;
         }
         float result = value / current;

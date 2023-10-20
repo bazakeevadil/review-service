@@ -11,7 +11,7 @@ public class AppDbContext : DbContext
 
     public DbSet<User> Users => Set<User>();
     public DbSet<Course> Courses => Set<Course>();
-    public DbSet<Comment> Comments => Set<Comment>();
+    public DbSet<Review> Reviews => Set<Review>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -28,8 +28,6 @@ public class AppDbContext : DbContext
                 });
 
         modelBuilder.Entity<Course>()
-            .Navigation(c => c.Comments).AutoInclude();
+            .Navigation(c => c.Reviews).AutoInclude();
     }
-
-
 }

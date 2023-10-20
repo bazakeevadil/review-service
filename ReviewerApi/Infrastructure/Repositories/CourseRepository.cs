@@ -2,7 +2,6 @@
 using Domain.Repositories;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Net.WebSockets;
 
 namespace Infrastructure.Repositories;
 
@@ -61,8 +60,8 @@ public class CourseRepository : ICourseRepository
 
     public async Task<List<(double, Course)>> SortCoursesByAverageGrade()
     {
-        var courses = await _context.Courses.AsNoTracking().Include(c => c.Comments).ToListAsync();
-        var sortedCourses = courses.Select(c => (c.Comments.Average(com => com.GradeForCourse), c)).OrderBy(t => t.Item1).ToList();
+        var courses = await _context.Courses.AsNoTracking().Include(c => c.Reviews).ToListAsync();
+        var sortedCourses = courses.Select(c => (c.Reviews.Average(com => com.Grade), c)).OrderBy(t => t.Item1).ToList();
         return sortedCourses;
     }
 }
