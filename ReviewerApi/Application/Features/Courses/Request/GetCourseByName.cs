@@ -19,13 +19,7 @@ internal class GetCourseByNameQueryHandler : IRequestHandler<GetCourseByNameQuer
         var course = await _courseRepository.GetCourseByName(request.Name);
         if (course is not null)
         {
-
-            var response = new CourseDto
-            {
-                Id = course.Id,
-                Name = request.Name,
-                Description = course.Description,
-            };
+            var response = course.Adapt<CourseDto>();
             return response;
         }
         return default;

@@ -31,12 +31,7 @@ internal class CreateCourseCommandHandler : IRequestHandler<CreateCourseCommand,
         _courseRepo.Add(course);
         await _unitOfWork.CommitAsync();
 
-        var response = new CourseDto
-        {
-            Id = course.Id,
-            Name = request.Name,
-            Description = request.Description,
-        };
+        var response = course.Adapt<CourseDto>();
 
         return response;
     }

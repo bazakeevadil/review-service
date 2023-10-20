@@ -1,9 +1,9 @@
 ﻿namespace Application.Features.Courses.Command;
 
 
-public record SortCoursesByAGQuery : IRequest<float> { }
+public record SortCoursesByAGQuery : IRequest<List<SortedCourseDto>> { }
 
-internal class SCBAGQueryHandler : IRequestHandler<SortCoursesByAGQuery, float>
+internal class SCBAGQueryHandler : IRequestHandler<SortCoursesByAGQuery, List<SortedCourseDto>>
 {
     private readonly IReviewRepository _reviewRepository;
     private readonly ICourseRepository _courseRepository;
@@ -14,23 +14,11 @@ internal class SCBAGQueryHandler : IRequestHandler<SortCoursesByAGQuery, float>
         _courseRepository = courseRepository;
     }
 
-    public async Task<float> Handle(
+    public async Task<List<SortedCourseDto>> Handle(
         SortCoursesByAGQuery request, CancellationToken cancellationToken)
     {
-        var reviews = await _reviewRepository.GetAllAsync();
+        var courses = await _courseRepository.SortCoursesByAverageGrade();
 
-        int current = 0;
-        float value = 0;
-
-        foreach (var item in reviews)
-        {
-            value += item.Grade;
-            current++;
-        }
-        float result = value / current;
-
-        var response =  result;
-
-        return response;
+        return courses.Select(c => new SortedCourseDto { AverageGrade = c.Item1, Course = c.Item2.Adapt<CourseDto>()}).ToList();
     }
 }

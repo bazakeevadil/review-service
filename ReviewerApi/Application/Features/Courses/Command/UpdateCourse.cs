@@ -31,12 +31,8 @@ internal class UpdateCourseCommandHandler : IRequestHandler<UpdateCourseCommand,
             _courseRepository.Update(course);
             await _unitOfWork.CommitAsync();
 
-            var response = new CourseDto
-            {
-                Id = course.Id,
-                Name = command.Name,    
-                Description = command.Description,
-            };
+            var response = course.Adapt<CourseDto>();
+
             return response;
         }
         return default;

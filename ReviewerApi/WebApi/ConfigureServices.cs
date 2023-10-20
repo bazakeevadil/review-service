@@ -1,11 +1,19 @@
-﻿namespace WebApi;
+using Application.Contract;
+using Domain.Entities;
+using Mapster;
+
+namespace WebApi;
 
 public static class ConfigureServices
 {
+
     public static IServiceCollection AddAuth(
        this IServiceCollection services,
        IConfiguration configuration)
     {
+        TypeAdapterConfig<Course, CourseDto>.NewConfig().MaxDepth(2).PreserveReference(true);
+        TypeAdapterConfig<Review, ReviewDto>.NewConfig().MaxDepth(2).PreserveReference(true);
+
         services.AddAuthentication(opts =>
         {
             opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

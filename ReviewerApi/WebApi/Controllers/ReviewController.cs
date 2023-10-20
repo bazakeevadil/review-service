@@ -1,4 +1,6 @@
-﻿namespace WebApi.Controllers;
+using System.Security.Claims;
+
+namespace WebApi.Controllers;
 
 [ApiController, Route("api/reviews")]
 public class ReviewController : ControllerBase
@@ -31,10 +33,13 @@ public class ReviewController : ControllerBase
         return NotFound();
     }
 
-    [AllowAnonymous]
+
     [HttpPost]
     public async Task<IActionResult> AddReview(CreateReviewCommand command)
     {
+        var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var user = long.Parse(userId!);
+        command.UserId = user;
         if (command.Content.IsNullOrEmpty())
             return BadRequest("Content cannot be empty");
         var response = await _mediator.Send(command);

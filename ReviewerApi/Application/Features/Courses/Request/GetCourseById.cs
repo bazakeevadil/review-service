@@ -20,12 +20,7 @@ internal class GetCourseByIdQueryHandler : IRequestHandler<GetCourseByIdQuery, C
         if (course is not null)
         {
 
-            var response = new CourseDto
-            {
-                Id = request.Id,
-                Name = course.Name,
-                Description = course.Description,
-            };
+            var response = course.Adapt<CourseDto>();
             return response;
         }
         return default;
