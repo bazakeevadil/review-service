@@ -18,7 +18,7 @@ public class CommentController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpGet("All")]
+    [HttpGet("all")]
     public async Task<IActionResult> GetAll()
     {
         var request = new GetAllCommentsQuery();
@@ -28,7 +28,7 @@ public class CommentController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpPost("ById")]
+    [HttpPost("byId")]
     public async Task<IActionResult> GetCommentById(GetCommentByIdQuery request)
     {
         var comment = await _mediator.Send(request);
@@ -38,7 +38,7 @@ public class CommentController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpPost("Add")]
+    [HttpPost("add")]
     public async Task<IActionResult> AddComment(CreateCommentCommand command)
     {
         if (command.Content.IsNullOrEmpty())
@@ -48,7 +48,7 @@ public class CommentController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpDelete("CommentById")]
+    [HttpDelete("byId")]
     public async Task<IActionResult> DeleteCommentById(DeleteCommentByIdCommand command)
     {
         await _mediator.Send(command);
@@ -56,7 +56,7 @@ public class CommentController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpPatch("ById")]
+    [HttpPatch("byId")]
     public async Task<IActionResult> UpdateCommentById(UpdateCommentCommand command)
     {
         var response = await _mediator.Send(command);
