@@ -1,8 +1,3 @@
-
-using Application.Contract;
-using Domain.Repositories;
-using MediatR;
-
 namespace Application.Features.Courses.Request;
 
 public record GetCourseByIdQuery : IRequest<CourseDto?>

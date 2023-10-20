@@ -1,8 +1,4 @@
-﻿using Application.Contract;
-using Application.Shared;
-using Domain.Entities;
-using Domain.Repositories;
-using MediatR;
+﻿using Application.Shared;
 
 namespace Application.Features.Courses.Command;
 

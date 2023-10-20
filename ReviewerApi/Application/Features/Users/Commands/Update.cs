@@ -1,8 +1,5 @@
-﻿using Application.Contract;
-using Application.Shared;
+﻿using Application.Shared;
 using Domain.Enum;
-using Domain.Repositories;
-using MediatR;
 
 namespace Application.Features.Users.Commands;
 

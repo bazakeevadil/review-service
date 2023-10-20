@@ -1,9 +1,4 @@
-﻿using Application.Contract;
-using Domain.Repositories;
-using Mapster;
-using MediatR;
-
-namespace Application.Features.Courses.Request;
+﻿namespace Application.Features.Courses.Request;
 public record GetAllCoursesQuery : IRequest<List<Contract.CourseDto>> { }
 
 internal class GetAllCoursesQueryHandler

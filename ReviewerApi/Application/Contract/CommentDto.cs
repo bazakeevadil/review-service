@@ -1,6 +1,4 @@
-﻿using Domain.Entities;
-
-namespace Application.Contract;
+﻿namespace Application.Contract;
 
 public class CommentDto
 {
