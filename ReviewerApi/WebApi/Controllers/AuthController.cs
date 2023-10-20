@@ -1,10 +1,3 @@
-using Application.Features.Users.Commands;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using Swashbuckle.AspNetCore.Annotations;
-
 namespace WebApi.Controllers;
 
 [ApiController, Route("api/auth")]

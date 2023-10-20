@@ -1,11 +1,4 @@
-﻿using Application.Features.Reviews.Command;
-using Application.Features.Reviews.Request;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-
-namespace WebApi.Controllers;
+﻿namespace WebApi.Controllers;
 
 [ApiController, Route("api/reviews")]
 public class ReviewController : ControllerBase

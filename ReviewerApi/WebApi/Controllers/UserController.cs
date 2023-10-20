@@ -1,11 +1,4 @@
-﻿using Application.Features.Users.Commands;
-using Application.Features.Users.Requests;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
-
-namespace WebApi.Controllers;
+﻿namespace WebApi.Controllers;
 
 [ApiController, Route("api/users")]
 public class UserController : ControllerBase
@@ -72,11 +65,21 @@ public class UserController : ControllerBase
     [SwaggerOperation("Редактирует пользователя", "Позволяет редактировать пользователя. Только для админа!!!")]
     [SwaggerResponse(200, "Успешно редактировано")]
     [SwaggerResponse(400, "Ошибка валидации")]
-    public async Task<IActionResult> Update(UpdateUserCommand request)
+    public async Task<IActionResult> Update(
+        PatchUserProps props, string email)
     {
-        await _mediator.Send(request);
+        var request = new PatchUserCommand
+        {
+            Email = email,
+            Props = props,
+        };
 
-        return Ok();
+        var result = await _mediator.Send(request);
+
+        if (result.IsSuccess)
+            return Ok();
+
+        return BadRequest(result.Reasons);
     }
 
     [Authorize(Roles = "Admin")]

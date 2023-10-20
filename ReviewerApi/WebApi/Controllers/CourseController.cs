@@ -1,11 +1,4 @@
-﻿using Application.Features.Courses.Command;
-using Application.Features.Courses.Request;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-
-namespace WebApi.Controllers;
+﻿namespace WebApi.Controllers;
 
 [ApiController, Route("api/courses")]
 public class CourseController : ControllerBase

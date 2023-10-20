@@ -1,14 +1,3 @@
-using Application;
-using Infrastructure;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
-using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.EntityFrameworkCore;
-using WebApi;
-using Infrastructure.Data;
-using Serilog;
-
 var builder = WebApplication.CreateBuilder(args);
 
 var logger = new LoggerConfiguration()
