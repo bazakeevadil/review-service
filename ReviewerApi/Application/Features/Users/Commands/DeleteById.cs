@@ -2,23 +2,23 @@
 
 namespace Application.Features.Users.Commands;
 
-public record DeleteUsersByIdCommand : IRequest
+public record DeleteUserByIdCommand : IRequest
 {
     public required long Id { get; init; }
 }
 
-internal class DeleteUsersByIdCommandHandler : IRequestHandler<DeleteUsersByIdCommand>
+internal class DeleteUserByIdCommandHandler : IRequestHandler<DeleteUserByIdCommand>
 {
     private readonly IUserRepository _userRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteUsersByIdCommandHandler(IUserRepository userRepository, IUnitOfWork unitOfWork)
+    public DeleteUserByIdCommandHandler(IUserRepository userRepository, IUnitOfWork unitOfWork)
     {
         _userRepository = userRepository;
         _unitOfWork = unitOfWork;
     }
 
-    public async Task Handle(DeleteUsersByIdCommand command, CancellationToken cancellationToken)
+    public async Task Handle(DeleteUserByIdCommand command, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetById(command.Id);
         if (user == null) return;
