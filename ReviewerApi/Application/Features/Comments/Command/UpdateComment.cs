@@ -11,10 +11,10 @@ public record UpdateCommentCommand : IRequest<CommentDto?>
 
 internal class UpdateCommentCommandHandler : IRequestHandler<UpdateCommentCommand, CommentDto?>
 {
-    private readonly ICommentRepo _commentRepository;
+    private readonly ICommentRepository _commentRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateCommentCommandHandler(ICommentRepo commentRepository, IUnitOfWork unitOfWork)
+    public UpdateCommentCommandHandler(ICommentRepository commentRepository, IUnitOfWork unitOfWork)
     {
         _commentRepository = commentRepository;
         _unitOfWork = unitOfWork;
@@ -26,7 +26,7 @@ internal class UpdateCommentCommandHandler : IRequestHandler<UpdateCommentComman
         if (comment is not null)
         {
             comment.Content = command.Content;
-            comment.Grade = command.Grade;
+            comment.GradeForCourse = command.Grade;
 
             _commentRepository.Update(comment);
             await _unitOfWork.CommitAsync();

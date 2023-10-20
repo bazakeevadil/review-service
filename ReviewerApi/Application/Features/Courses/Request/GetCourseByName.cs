@@ -7,9 +7,9 @@ public record GetCourseByNameQuery : IRequest<CourseDto?>
 
 internal class GetCourseByNameQueryHandler : IRequestHandler<GetCourseByNameQuery, CourseDto?>
 {
-    private readonly ICourseRepo _courseRepository;
+    private readonly ICourseRepository _courseRepository;
 
-    public GetCourseByNameQueryHandler(ICourseRepo courseRepository)
+    public GetCourseByNameQueryHandler(ICourseRepository courseRepository)
     {
         _courseRepository = courseRepository;
     }

@@ -7,9 +7,9 @@ public record GetCommentByIdQuery : IRequest<CommentDto?>
 
 internal class GetCommentByIdQueryHandler : IRequestHandler<GetCommentByIdQuery, CommentDto?>
 {
-    private readonly ICommentRepo _commentRepository;
+    private readonly ICommentRepository _commentRepository;
 
-    public GetCommentByIdQueryHandler(ICommentRepo commentRepository)
+    public GetCommentByIdQueryHandler(ICommentRepository commentRepository)
     {
         _commentRepository = commentRepository;
     }
@@ -24,7 +24,7 @@ internal class GetCommentByIdQueryHandler : IRequestHandler<GetCommentByIdQuery,
             {
                 Id = request.Id,
                 Content = course.Content,
-                Grade = course.Grade,
+                Grade = course.GradeForCourse,
             };
             return response;
         }

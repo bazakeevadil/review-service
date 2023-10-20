@@ -10,10 +10,10 @@ public record CreateCommentCommand : IRequest<CommentDto>
 
 internal class CreateCommentCommandHandler : IRequestHandler<CreateCommentCommand, CommentDto>
 {
-    private readonly ICommentRepo _commentRepo;
+    private readonly ICommentRepository _commentRepo;
     private readonly IUnitOfWork _unitOfWork;
 
-    public CreateCommentCommandHandler(ICommentRepo commentRepository, IUnitOfWork unitOfWork)
+    public CreateCommentCommandHandler(ICommentRepository commentRepository, IUnitOfWork unitOfWork)
     {
         _commentRepo = commentRepository;
         _unitOfWork = unitOfWork;
@@ -24,7 +24,7 @@ internal class CreateCommentCommandHandler : IRequestHandler<CreateCommentComman
         var comment = new Comment
         {
             Content = request.Content,
-            Grade = request.Grade,
+            GradeForCourse = request.Grade,
         };
 
         _commentRepo.Add(comment);

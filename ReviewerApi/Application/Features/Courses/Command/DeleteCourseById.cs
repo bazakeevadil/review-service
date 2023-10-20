@@ -9,10 +9,10 @@ public record DeleteCourseByIdCommand : IRequest
 
 internal class DeleteCourseByIdCommandHandler : IRequestHandler<DeleteCourseByIdCommand>
 {
-    private readonly ICourseRepo _courseRepository;
+    private readonly ICourseRepository _courseRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteCourseByIdCommandHandler(ICourseRepo courseRepository, IUnitOfWork unitOfWork)
+    public DeleteCourseByIdCommandHandler(ICourseRepository courseRepository, IUnitOfWork unitOfWork)
     {
         _courseRepository = courseRepository;
         _unitOfWork = unitOfWork;
