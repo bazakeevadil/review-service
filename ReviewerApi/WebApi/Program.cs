@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using WebApi;
+using Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

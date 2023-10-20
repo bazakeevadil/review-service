@@ -35,6 +35,23 @@ services:
       retries: 5
     restart: unless-stopped
 
+  ngrok:
+    container_name: "ngrok"
+    hostname: "ngrok"
+    image: ngrok/ngrok:latest
+    command:
+      - "start"
+      - "--all"
+      - "--config"
+      - "/etc/ngrok.yml"
+    volumes:
+      - ./ngrok.yml:/etc/ngrok.yml
+    ports:
+      - 4040:4040
+    networks:
+      - "reviewer"
+    restart: unless-stopped
+
 volumes:
   mssql_volume:
     name: "mssql_volume"

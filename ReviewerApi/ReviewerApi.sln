@@ -19,6 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DockerProduction", "DockerP
 	ProjectSection(SolutionItems) = preProject
 		..\DockerCompose\.env = ..\DockerCompose\.env
 		..\DockerCompose\docker-compose.yml = ..\DockerCompose\docker-compose.yml
+		ngrok.yml = ngrok.yml
 	EndProjectSection
 EndProject
 Global
