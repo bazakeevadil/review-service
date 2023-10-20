@@ -13,6 +13,9 @@
 # Ignore environemt variables
 .env
 
+# Ignore ngrok configs
+ngrok.yml
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
