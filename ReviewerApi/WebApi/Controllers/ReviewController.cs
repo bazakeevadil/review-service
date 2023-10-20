@@ -12,7 +12,6 @@ public class ReviewController : ControllerBase
         _mediator = mediator;
     }
 
-    [AllowAnonymous]
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -22,7 +21,6 @@ public class ReviewController : ControllerBase
         return Ok(reviews);
     }
 
-    [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetReviewById(long id)
     {
@@ -32,7 +30,6 @@ public class ReviewController : ControllerBase
             return Ok(review);
         return NotFound();
     }
-
 
     [HttpPost]
     public async Task<IActionResult> AddReview(CreateReviewCommand command)
@@ -46,7 +43,6 @@ public class ReviewController : ControllerBase
         return Ok(response);
     }
 
-    [AllowAnonymous]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteReviewById(long id)
     {
@@ -55,7 +51,6 @@ public class ReviewController : ControllerBase
         return NoContent();
     }
 
-    [AllowAnonymous]
     [HttpPatch]
     public async Task<IActionResult> UpdateReviewById(UpdateReviewCommand command)
     {

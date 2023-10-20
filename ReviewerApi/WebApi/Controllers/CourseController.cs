@@ -10,7 +10,6 @@ public class CourseController : ControllerBase
         _mediator = mediator;
     }
 
-    [AllowAnonymous]
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -20,7 +19,6 @@ public class CourseController : ControllerBase
         return Ok(courses);
     }
 
-    [AllowAnonymous]
     [HttpGet("by-name/{name}")]
     public async Task<IActionResult> GetCourseByName(string name)
     {
@@ -31,7 +29,6 @@ public class CourseController : ControllerBase
         return NotFound();
     }
 
-    [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCourseById(long id)
     {
@@ -42,7 +39,6 @@ public class CourseController : ControllerBase
         return NotFound();
     }
 
-    [AllowAnonymous]
     [HttpPost]
     public async Task<IActionResult> AddCourse(CreateCourseCommand command)
     {
@@ -54,7 +50,6 @@ public class CourseController : ControllerBase
         return Ok(response);
     }
 
-    [AllowAnonymous]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteCourseById(long id)
     {
@@ -63,7 +58,6 @@ public class CourseController : ControllerBase
         return NoContent();
     }
 
-    [AllowAnonymous]
     [HttpDelete("by-name/{name}")]
     public async Task<IActionResult> DeleteCourseByName(string name)
     {
@@ -72,7 +66,6 @@ public class CourseController : ControllerBase
         return Ok("Course deleted.");
     }
 
-    [AllowAnonymous]
     [HttpPatch]
     public async Task<IActionResult> Update(UpdateCourseCommand command)
     {
@@ -81,7 +74,6 @@ public class CourseController : ControllerBase
         return BadRequest();
     }
 
-    [AllowAnonymous]
     [HttpGet("sort-by-grade")]
     public async Task<IActionResult> Sort()
     {
