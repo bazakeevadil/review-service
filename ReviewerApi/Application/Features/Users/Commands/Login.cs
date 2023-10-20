@@ -35,6 +35,7 @@ internal class LoginHandler : IRequestHandler<LoginQuery, string>
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Role, user.Role.ToString())
             };
             var tokenString = GetTokenString(claims, DateTime.UtcNow.AddMinutes(30));

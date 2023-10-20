@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace WebApi.Controllers;
 
@@ -38,10 +39,13 @@ public class ReviewController : ControllerBase
         return NotFound();
     }
 
-    [AllowAnonymous]
+
     [HttpPost]
     public async Task<IActionResult> AddReview(CreateReviewCommand command)
     {
+        var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var user = long.Parse(userId!);
+        command.UserId = user;
         if (command.Content.IsNullOrEmpty())
             return BadRequest("Content cannot be empty");
         var response = await _mediator.Send(command);

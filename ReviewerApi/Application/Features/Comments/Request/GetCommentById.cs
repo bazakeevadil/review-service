@@ -17,16 +17,21 @@ internal class GetReviewByIdQueryHandler : IRequestHandler<GetReviewByIdQuery, R
     public async Task<ReviewDto?> Handle(GetReviewByIdQuery request, CancellationToken cancellationToken)
     {
         var review = await _reviewRepository.GetById(request.Id);
+       
         if (review is not null)
         {
-
-            var response = new ReviewDto
+           if (review.Course?.Id == review.CourseId)
             {
-                Id = request.Id,
-                Content = review.Content,
-                Grade = review.Grade,
-            };
-            return response;
+                var response = new ReviewDto
+                {
+                    CourseId = review.CourseId,
+                    Id = request.Id,
+                    Content = review.Content,
+                    Grade = review.Grade,
+                };
+                return response;
+            }
+          
         }
         return default;
     }
