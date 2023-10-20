@@ -5,8 +5,8 @@ namespace Application.Features.Courses.Command;
 public record UpdateCouresCommand : IRequest<CourseDto?>
 {
     public required long Id { get; init; }
-    public required string? Name { get; init; }
-    public required string? Description { get; init; }
+    public required string Name { get; init; }
+    public required string Description { get; init; }
 }
 
 internal class UpdateCourseHandler : IRequestHandler<UpdateCouresCommand, CourseDto?>

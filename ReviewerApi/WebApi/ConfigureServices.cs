@@ -45,7 +45,7 @@ public static class ConfigureServices
         {
             c.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "Book-Store Api",
+                Title = "RevievApi",
                 Version = "v1"
             });
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
