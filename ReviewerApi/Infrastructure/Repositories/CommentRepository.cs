@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-public class CommentRepo : ICommentRepo
+public class CommentRepository : ICommentRepository
 {
     private readonly AppDbContext _context;
 
-    public CommentRepo(AppDbContext context)
+    public CommentRepository(AppDbContext context)
     {
         _context = context;
     }

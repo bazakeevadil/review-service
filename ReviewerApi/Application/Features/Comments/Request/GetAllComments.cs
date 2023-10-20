@@ -5,9 +5,9 @@ public record GetAllCommentsQuery : IRequest<List<CommentDto>> { }
 internal class GetAllCommentQueryHandler
     : IRequestHandler<GetAllCommentsQuery, List<CommentDto>>
 {
-    private readonly ICommentRepo _commentRepository;
+    private readonly ICommentRepository _commentRepository;
 
-    public GetAllCommentQueryHandler(ICommentRepo commentRepository)
+    public GetAllCommentQueryHandler(ICommentRepository commentRepository)
     {
         _commentRepository = commentRepository;
     }
@@ -16,7 +16,7 @@ internal class GetAllCommentQueryHandler
         GetAllCommentsQuery request, CancellationToken cancellationToken)
     {
         var comment = await _commentRepository.GetAllAsync();
-
+        
         var response = comment.Adapt<List<CommentDto>>();
 
         return response;

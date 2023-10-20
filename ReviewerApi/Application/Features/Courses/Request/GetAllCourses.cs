@@ -4,9 +4,9 @@ public record GetAllCoursesQuery : IRequest<List<CourseDto>> { }
 internal class GetAllCoursesQueryHandler
     : IRequestHandler<GetAllCoursesQuery, List<CourseDto>>
 {
-    private readonly ICourseRepo _courseRepository;
+    private readonly ICourseRepository _courseRepository;
 
-    public GetAllCoursesQueryHandler(ICourseRepo commentRepository)
+    public GetAllCoursesQueryHandler(ICourseRepository commentRepository)
     {
         _courseRepository = commentRepository;
     }

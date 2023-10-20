@@ -26,6 +26,9 @@ public class AppDbContext : DbContext
                     HashPassword = passwordHash,
                     Role = Domain.Enum.Role.Admin,
                 });
+
+        modelBuilder.Entity<Course>()
+            .Navigation(c => c.Comments).AutoInclude();
     }
 
 

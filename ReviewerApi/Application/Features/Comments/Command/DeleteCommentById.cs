@@ -9,10 +9,10 @@ public record DeleteCommentByIdCommand : IRequest
 
 internal class DeleteCommentByIdCommandHandler : IRequestHandler<DeleteCommentByIdCommand>
 {
-    private readonly ICommentRepo _commentRepository;
+    private readonly ICommentRepository _commentRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteCommentByIdCommandHandler(ICommentRepo commentRepository, IUnitOfWork unitOfWork)
+    public DeleteCommentByIdCommandHandler(ICommentRepository commentRepository, IUnitOfWork unitOfWork)
     {
         _commentRepository = commentRepository;
         _unitOfWork = unitOfWork;

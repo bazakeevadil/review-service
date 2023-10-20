@@ -11,10 +11,10 @@ public record UpdateCourseCommand : IRequest<CourseDto?>
 
 internal class UpdateCourseCommandHandler : IRequestHandler<UpdateCourseCommand, CourseDto?>
 {
-    private readonly ICourseRepo _courseRepository;
+    private readonly ICourseRepository _courseRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateCourseCommandHandler(ICourseRepo courseRepository, IUnitOfWork unitOfWork)
+    public UpdateCourseCommandHandler(ICourseRepository courseRepository, IUnitOfWork unitOfWork)
     {
         _courseRepository = courseRepository;
         _unitOfWork = unitOfWork;
