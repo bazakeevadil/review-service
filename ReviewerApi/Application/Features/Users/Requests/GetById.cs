@@ -1,6 +1,4 @@
 ﻿using Domain.Enum;
-using Domain.Repositories;
-using MediatR;
 
 namespace Application.Features.Users.Requests;
 

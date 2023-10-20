@@ -1,8 +1,4 @@
-﻿using Application.Contract;
-using Domain.Repositories;
-using MediatR;
-
-namespace Application.Features.Comments.Request;
+﻿namespace Application.Features.Comments.Request;
 
 public record GetCommentByIdQuery : IRequest<CommentDto?>
 {

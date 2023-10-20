@@ -1,9 +1,4 @@
-
-﻿using Application.Contract;
 using Application.Shared;
-using Domain.Entities;
-using Domain.Repositories;
-using MediatR;
 
 namespace Application.Features.Comments.Command;
 

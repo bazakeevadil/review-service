@@ -1,6 +1,4 @@
 ﻿using Application.Shared;
-using Domain.Repositories;
-using MediatR;
 
 namespace Application.Features.Courses.Command;
 
@@ -26,7 +24,7 @@ internal class DeleteCourseCommandHandler
         var course = await _courseRepository.GetCourseByName(request.Name);
         if (course is not null)
         {
-            _courseRepository.DeleteByName(course);
+            _courseRepository.Delete(course);
             await _uow.CommitAsync();
         }
     }

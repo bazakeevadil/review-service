@@ -1,15 +1,11 @@
-﻿using Application.Contract;
-using Application.Shared;
-using Domain.Entities;
+﻿using Application.Shared;
 using Domain.Enum;
-using Domain.Repositories;
-using MediatR;
 
 namespace Application.Features.Users.Commands;
 
 public record CreateUserCommand : IRequest<UserDto>
 {
-    public required string Username { get; init; }
+    public required string Email { get; init; }
 
     public required string Password { get; init; }
 }
@@ -29,7 +25,7 @@ internal class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Use
     {
         var user = new User
         {
-            Email = request.Username,
+            Email = request.Email,
             HashPassword = await _userRepository.HashPasswordAsync(request.Password),
             Role = Role.User
         };
