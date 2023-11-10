@@ -3,6 +3,7 @@ import * as Yup from 'yup'
 import { Formik, Form } from 'formik';
 import { register } from '../redux/action';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 const SignupSchema = Yup.object().shape({
@@ -23,7 +24,11 @@ const SignupSchema = Yup.object().shape({
 
  const Registration = () => {
    const dispatch = useDispatch()
+   const navigate = useNavigate()
    const registrate = (values) =>{
+// if(values){
+  navigate('/login')
+// }
     dispatch(register(values))
    }
  

@@ -2,8 +2,9 @@
 import React from "react"
 import { Navigate,Outlet } from "react-router-dom"
 import Header from "./Header"
+import { useSelector } from 'react-redux'
 const Layout = () => {
-const token= false
+const token = localStorage.getItem('token')
     return (
       <>
       

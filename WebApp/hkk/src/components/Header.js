@@ -1,10 +1,12 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
 
 const Header = () => {
 
-    const token = false
+const token = localStorage.getItem('token') 
+
     return (
         <>
             <header className='header'>
@@ -28,6 +30,7 @@ const Header = () => {
                                     <img src='https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png' />
                                 </div>
                                 </NavLink>
+
                             </div> :
                             <div className="header__login">
                                 <NavLink to='/login'>

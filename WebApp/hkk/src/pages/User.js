@@ -4,6 +4,7 @@ const User = () => {
     return (
         <div>
             <div className='user'>
+                <div className='user__wrapper'>
                 <div className='container'>
                     <p className='user__name'>
                         User email
@@ -32,6 +33,7 @@ const User = () => {
 
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
